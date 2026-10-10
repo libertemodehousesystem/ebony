@@ -1,0 +1,134 @@
+<!-- <button (click)="getcustomercartitems()">データ取得</button> -->
+<div class="matrixinfo">
+  <!-- <div class="headeritem">
+  <label>年度</label>
+  <input type="text" [(ngModel)]="nendo">
+</div> -->
+  <div class="headeritem">
+    @for (shop of shops(); track shop) {
+      <div class="radioitem">
+        <input
+          type="radio"
+          id="shop{{ shop.shop_id }}"
+          name="ordershop"
+          (change)="changeshop(shop.shop_id)"
+          [checked]="shop.shop_id == targetshop()?.shop_id"
+        />
+        <label for="shop{{ shop.shop_id }}">{{ shop.shop_name }}</label>
+      </div>
+    }
+  </div>
+  <div class="headeritem">
+    @for (gender of genders; track gender) {
+      <div class="radioitem">
+        <input
+          type="radio"
+          id="gender{{ gender.gender_id }}"
+          name="ordergender"
+          (change)="changegender(gender.gender_id)"
+          [checked]="gender.gender_id == targetgender()?.gender_id"
+        />
+        <label for="gender{{ gender.gender_id }}">{{ gender.caption }}</label>
+      </div>
+    }
+  </div>
+</div>
+<div class="listplate">
+  <table class="customercarttable">
+    <thead>
+      <tr>
+        <!-- <th></th> -->
+        @for (header of headers; track header) {
+          <th>{{ header }}</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (
+        orderingrow of orderingmatrix();
+        track orderingrow;
+        let i = $index;
+        let isfirst = $first
+      ) {
+        <tr [ngClass]="{ headerrow: isfirst, customerrow: !isfirst }">
+          <!-- <td><div *ngIf="!isfirst"><button (click)="checkorderstatus(orderingrow[1])">check</button></div></td> -->
+          @for (orderingcell of orderingrow; track orderingcell) {
+            <td>{{ orderingcell }}</td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+<div class="actionbox">
+  <button (click)="orderexportfile()">エクスポート</button>
+  <button (click)="checkearnings()">売上確認</button>
+</div>
+@if (showsummary()) {
+  <div class="sumdialogback">
+    <div class="sumdialog">
+      <div class="summaryselectpanes">
+        @for (summary of summaries(); track summary) {
+          <div class="summaryselectpane">
+            <input
+              type="radio"
+              name="target"
+              id="summary{{ summary.summary_id }}"
+              (change)="changesummary(summary)"
+            />
+            <label for="summary{{ summary.summary_id }}"
+              >{{ getearnedat(summary.earned_at) }} {{ getshopcaption(summary.shop_id) }}</label
+            >
+          </div>
+        }
+      </div>
+      @if (targetsummary()) {
+        <div class="tableplate">
+          <table>
+            <thead>
+              <tr>
+                <th>支払方法</th>
+                <th>支払総額</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div>{{ targetsummary()['CASH'].caption }}</div>
+                </td>
+                <td>
+                  <div class="currency">
+                    {{ currencyoutput(targetsummary()['CASH'].total_money) }}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div>{{ targetsummary()['OTHER'].caption }}</div>
+                </td>
+                <td>
+                  <div class="currency">
+                    {{ currencyoutput(targetsummary()['OTHER'].total_money) }}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div>{{ targetsummary()['NONE'].caption }}</div>
+                </td>
+                <td>
+                  <div class="currency">
+                    {{ currencyoutput(targetsummary()['NONE'].total_money) }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      }
+      <div>
+        <button (click)="closesumdialog()">閉じる</button>
+      </div>
+    </div>
+  </div>
+}

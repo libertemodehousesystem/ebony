@@ -1,0 +1,23 @@
+<div class="squarestartarea">
+  @if (!accessflg()) {
+    <div class="errormessage">アクセス情報が取得できませんでした</div>
+  }
+  <form ngNoForm name="startsq" action="{{ starturl() }}" method="GET">
+    <div>
+      Sqaureのサイトに移動します。<br />
+      よろしければボタンを押してください。
+    </div>
+    <input type="hidden" name="client_id" value="{{ client_id() }}" />
+    <input type="hidden" name="response_type" value="code" />
+    <input type="hidden" name="scope" value="{{ scope }}" />
+    <input type="hidden" name="state" value="{{ state }}" />
+    <div>
+      <input
+        type="submit"
+        [ngClass]="{ cansubmit: accessflg(), cannotsubmit: !accessflg() }"
+        value="移動する"
+        [disabled]="!accessflg()"
+      />
+    </div>
+  </form>
+</div>

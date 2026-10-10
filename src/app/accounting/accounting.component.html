@@ -1,0 +1,339 @@
+<div class="accountingarea">
+  <div class="accountingplate">
+    <app-customerinfo
+      [(customerinfo)]="customerinfo"
+      [canedit]="false"
+      [cansearch]="cansearch"
+      [limited]="false"
+    ></app-customerinfo>
+    @if (targetcheckcomment()) {
+      <div class="oldusebox">
+        <input
+          type="checkbox"
+          id="olduse"
+          (change)="updatereceiptcomment()"
+          [(ngModel)]="targetcheckcomment().olduse"
+        />
+        <label for="olduse">おさがりを利用予定</label>
+      </div>
+    }
+    @if (targetcheckcomment()) {
+      <div class="receitbox">
+        <input
+          #IsReceipt
+          type="checkbox"
+          id="isreceit"
+          [(ngModel)]="targetcheckcomment().receipt_mode"
+          (change)="updatereceiptcomment()"
+        />
+        <label for="isreceit">領収書必要</label>
+        @if (IsReceipt.checked) {
+          <div class="receiptdetailbox">
+            <div class="receiptfield">
+              <label>宛名</label>
+              <input
+                type="text"
+                class="normallen"
+                [(ngModel)]="targetcheckcomment().receipt_address"
+                (input)="inputaddress($event)"
+              />
+            </div>
+            <div class="receiptfield">
+              <label>但し書き</label>
+              <input
+                type="text"
+                class="longlen"
+                [(ngModel)]="targetcheckcomment().receipt_proviso"
+                (input)="inputproviso($event)"
+              />
+            </div>
+          </div>
+        }
+      </div>
+    }
+    @if (customerinfo().customer_uid) {
+      <div class="routingbox">
+        <div class="routingbutton" (click)="routingmeasuring()">
+          <div class="textcell">採寸商品ページ</div>
+        </div>
+        <div class="routingbutton" (click)="routingpurchase()">
+          <div class="textcell">商品購入ページ</div>
+        </div>
+        <div class="routingbutton" (click)="routingshoppingcart()">
+          <div class="textcell">カート<br />ページ</div>
+        </div>
+      </div>
+    }
+    @if (customerinfo().customer_uid && checkout().square_order_id) {
+      <div class="squarenotice">
+        <div>既にSquareに注文情報が作成されています。</div>
+        <div class="refundtoggle">
+          <input type="checkbox" id="refundtoggle" [(ngModel)]="canrefund" />
+          <label for="refundtoggle"> </label>
+        </div>
+        <button (click)="refundorder()" [disabled]="!canrefund()">払い戻す</button>
+      </div>
+    }
+    @if (customerinfo().customer_uid) {
+      <table class="checkouttable">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>商品名</th>
+            <th>単価</th>
+            <th>個数</th>
+            <th>コード</th>
+            <th>価格</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of checkout().items; track item; let i = $index) {
+            <tr #AccountingItems [ngClass]="{ itemodd: i % 2 == 0, itemeven: i % 2 == 1 }">
+              <td>{{ i + 1 }}</td>
+              <td>
+                <div>
+                  <div
+                    class="namecol"
+                    [style.background-color]="item.postage.bg_color"
+                    [style.color]="item.postage.font_color"
+                  >
+                    {{ item.item_name }}
+                  </div>
+                </div>
+                <div>
+                  <div class="namecol highlight">
+                    {{ item.variation.variation_name }}
+                    @if (item.variation.matashita) {
+                      <span>{{ item.variation.matashita }}cm</span>
+                    }
+                  </div>
+                </div>
+              </td>
+              <td class="currency highlight">{{ convertcurrency(item.base_price_money) }}</td>
+              <td class="amount highlight">{{ item.amount }}</td>
+              <td>
+                @for (sku of item.skus; track sku; let j = $index) {
+                  <div>
+                    <svg
+                      class="libbarcode"
+                      id="barcode{{ i }}-{{ j }}"
+                      [style.width]="csswidth"
+                    ></svg>
+                  </div>
+                }
+              </td>
+              <td>
+                <div class="smallfont currency">（内 {{ convertcurrency(item.tax_money) }}）</div>
+                <div class="currency highlight">{{ convertcurrency(item.money) }}</div>
+              </td>
+            </tr>
+          }
+          <tr>
+            <td></td>
+            <td colspan="2">
+              @if (incpostage() && incpostage() != measurement().includepostage) {
+                <div class="delivercaution">※購入予定ですが冬物送料が含まれていません</div>
+              }
+              @if (!incpostage() && incpostage() != measurement().includepostage) {
+                <div class="delivercaution">※冬物送料が含まれています</div>
+              }
+            </td>
+            <!-- <td></td> -->
+            <td>
+              <div class="toggle">
+                <input
+                  type="checkbox"
+                  id="includepostagetoggle"
+                  (change)="regeneratecheckouts()"
+                  [(ngModel)]="measurement().includepostage"
+                />
+                <label for="includepostagetoggle"> </label>
+              </div>
+            </td>
+            <td>
+              <span
+                [style.background-color]="postages[1].bg_color"
+                [style.color]="postages[1].font_color"
+                >冬物送料</span
+              >
+            </td>
+            <td class="currency highlight">{{ convertcurrency(checkout().postage_money) }}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="2">
+              @if (incpostage2() && incpostage2() != measurement().includepostage2) {
+                <div class="delivercaution">※購入予定ですが夏物送料が含まれていません</div>
+              }
+              @if (!incpostage2() && incpostage2() != measurement().includepostage2) {
+                <div class="delivercaution">※夏物送料が含まれています</div>
+              }
+            </td>
+            <!-- <td></td> -->
+            <td>
+              <div class="toggle">
+                <input
+                  type="checkbox"
+                  id="includepostage2toggle"
+                  (change)="regeneratecheckouts()"
+                  [(ngModel)]="measurement().includepostage2"
+                />
+                <label for="includepostage2toggle"> </label>
+              </div>
+            </td>
+            <td>
+              <span
+                [style.background-color]="postages[2].bg_color"
+                [style.color]="postages[2].font_color"
+                >夏物送料</span
+              >
+            </td>
+            <td class="currency highlight">{{ convertcurrency(checkout().postage2_money) }}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>消費税</td>
+            <td class="currency highlight">{{ convertcurrency(checkout().total_tax_money) }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>合計</td>
+            <td class="currency highlight">{{ convertcurrency(checkout().total_money) }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    }
+    @if (visiblectrl().canregist) {
+      <div class="paymethod">
+        <input
+          type="radio"
+          name="checkmethod"
+          id="cashmeth"
+          (change)="changecheckmethod('CASH')"
+          [checked]="checkmethod() == 'CASH'"
+        />
+        <label for="cashmeth">現金</label>
+        <input
+          type="radio"
+          name="checkmethod"
+          id="bankmeth"
+          (change)="changecheckmethod('OTHER')"
+          [checked]="checkmethod() == 'OTHER'"
+        />
+        <label for="bankmeth">振込</label>
+      </div>
+    }
+    <div class="requestbox">
+      @if (visiblectrl().other) {
+        <div class="meisaibox">
+          <button
+            class="furipaperbutton"
+            (click)="furikomidetail()"
+            [disabled]="!visiblectrl().canregist"
+          >
+            明細発行
+          </button>
+        </div>
+      }
+      @if (visiblectrl().cash) {
+        <div class="checknumbers">
+          @if (visiblectrl().input) {
+            <table class="checknumbetable">
+              <tbody>
+                <tr>
+                  <td colspan="2" class="receivereset" (click)="removecheck()">消去</td>
+                  <td class="backspace" (click)="backspacecheck()">1文字削除</td>
+                </tr>
+                <tr>
+                  <td><div class="numbutton" (click)="inputcheck(7)">7</div></td>
+                  <td><div class="numbutton" (click)="inputcheck(8)">8</div></td>
+                  <td><div class="numbutton" (click)="inputcheck(9)">9</div></td>
+                </tr>
+                <tr>
+                  <td><div class="numbutton" (click)="inputcheck(4)">4</div></td>
+                  <td><div class="numbutton" (click)="inputcheck(5)">5</div></td>
+                  <td><div class="numbutton" (click)="inputcheck(6)">6</div></td>
+                </tr>
+                <tr>
+                  <td><div class="numbutton" (click)="inputcheck(1)">1</div></td>
+                  <td><div class="numbutton" (click)="inputcheck(2)">2</div></td>
+                  <td><div class="numbutton" (click)="inputcheck(3)">3</div></td>
+                </tr>
+                <tr>
+                  <td colspan="2"><div class="dnumbutton" (click)="inputzero()">0</div></td>
+                  <td><div class="numbutton" (click)="inputzerozero()">00</div></td>
+                </tr>
+                <tr>
+                  <td colspan="3" class="receiveconfirm" (click)="cashheckout()">確定</td>
+                </tr>
+              </tbody>
+            </table>
+          }
+          @if (visiblectrl().result) {
+            <div class="checkresults">
+              <div>
+                <label>受取金額</label>
+                <div
+                  id="receivebox"
+                  class="inputmoney receivemoney receivebox"
+                  tabindex="0"
+                  (keydown)="accountkeydown($event)"
+                >
+                  {{ convertcurrency(checkout().receive_money) }}
+                </div>
+              </div>
+              <div>
+                <label>お釣り</label>
+                <div class="inputmoney changemoney">
+                  {{ convertcurrency(checkout().change_money) }}
+                </div>
+              </div>
+            </div>
+          }
+          <div class="receiptbox">
+            @if (customerinfo().customer_uid) {
+              <button class="issuebutton" (click)="issuereceipt()" [disabled]="!canissue()">
+                レシート発行
+              </button>
+            }
+            <!-- <button *ngIf="customerinfo().customer_uid" class="issuebutton" [disabled]="checkmethod()!='CASH'">レシート発行</button> -->
+            <!-- <button *ngIf="customerinfo().customer_uid" class="issuebutton" (click)="issuereceiptnumber()" [disabled]="checkmethod()!='CASH'">レシート番号発行テスト</button> -->
+          </div>
+        </div>
+      }
+    </div>
+    <!-- <button *ngIf="customerinfo().customer_uid" (click)="printreceipt()">購入明細発行テスト</button> -->
+    <canvas #CanvasPaper width="384" height="{{ canvasheight() }}" class="cvspaper"></canvas>
+    <img class="logoimage" id="logo" src="/assets/sitatelogo.png" />
+    <!-- <img class="qrimage" id="hoseiecqr" src="/assets/shitate_qr.png" /> -->
+    <img class="qrimage" id="hoseiecqr" src="/assets/hosei_ec_qr.png" />
+    <img class="stampimage" id="stamp" src="/assets/stamp.png" />
+    <!-- <div>
+  </div> -->
+  </div>
+</div>
+
+@if (splashdisplay()) {
+  <div class="splashback">
+    <div class="splashwindow">
+      <div>{{ splashmsg() }}</div>
+    </div>
+  </div>
+}
+
+@if (dialogdisplay()) {
+  <div class="dialogback">
+    <div class="dialogwindow">
+      <div class="dlgmsg">{{ dialogmsg() }}</div>
+      <button (click)="msgdlgclose()">閉じる</button>
+    </div>
+  </div>
+}

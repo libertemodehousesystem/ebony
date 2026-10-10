@@ -1,0 +1,673 @@
+$tablet: 600px;
+
+// @media screen and(max-width: 600px) {
+@media (max-width: ($tablet)) {
+  .customerinfoarea{
+    margin: 0px 10px 0px 0px;
+  }
+  .namefield{
+    position: relative;
+    .familyname{
+      display: block;
+      font-size: 0.8rem;
+    }
+    .customerfamilyname{
+      padding: 2px;
+      margin: 0px 0px 10px 0px;
+      width: calc(100vw - 60px);
+      font-size: 1.2rem;
+    }
+    .givenname{
+      display: block;
+      font-size: 0.8rem;
+    }
+    .customergivenname{
+      padding: 2px;
+      margin: 0px 0px 10px 0px;
+      width: calc(100vw - 60px);
+      font-size: 1.2rem;
+    }
+    .suggestbox{
+      position: absolute;
+      top: 48px;
+      left: 0px;
+      border: solid 1px #000000;
+      background-color: #ffffff;
+      max-height: 180px;
+      overflow-y: auto;
+      .customeritem{
+        padding: 15px 10px 5px 10px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        &:hover{
+          background-color: #e2ec85;
+        }
+      }
+    }
+  }
+  .parentnamefield{
+    .parentfamilyname{
+      display: block;
+      font-size: 0.8rem;
+    }
+    .customerparentfamilyname{
+      padding: 2px;
+      margin: 0px 0px 10px 0px;
+      width: calc(100vw - 60px);
+      font-size: 1.2rem;
+    }
+    .parentgivenname{
+      display: block;
+      font-size: 0.8rem;
+    }
+    .customerparentgivenname{
+      padding: 2px;
+      margin: 0px 0px 10px 0px;
+      width: calc(100vw - 60px);
+      font-size: 1.2rem;
+    }
+  }
+  .knnamefield{
+    .familyknname{
+      display: block;
+      font-size: 0.8rem;
+    }
+    .customerfamilyknname{
+      padding: 2px;
+      margin: 0px 0px 10px 0px;
+      width: calc(100vw - 60px);
+      font-size: 1.2rem;
+    }
+    .givenknname{
+      display: block;
+      font-size: 0.8rem;
+    }
+    .customergivenknname{
+      padding: 2px;
+      margin: 0px 0px 10px 0px;
+      width: calc(100vw - 60px);
+      font-size: 1.2rem;
+    }
+  }
+  .emailfield{
+    .email{
+      display: block;
+      font-size: 0.8rem;
+    }
+    .customeremail{
+      padding: 2px;
+      margin: 0px 0px 10px 0px;
+      width: calc(100vw - 60px);
+      font-size: 1.2rem;
+    }
+  }
+  .phonefield{
+    .phone{
+      display: block;
+      font-size: 0.8rem;
+    }
+    .customerphone{
+      padding: 2px;
+      margin: 0px 0px 10px 0px;
+      width: 150px;
+      font-size: 1.2rem;
+    }
+  }
+  .zipcodefield{
+    .zipcode{
+      display: block;
+      font-size: 0.8rem;
+    }
+    .zipcodebox{
+      display:flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      margin: 0px 0px 10px 0px;
+      .customerzipcode{
+        margin-top: 3px;
+        width: 80px;
+        font-size: 1.2rem;
+      }
+      .cansearch{
+        width: 30px;
+        height: 30px;
+        margin: 0px 0px 0px 5px;
+        cursor: pointer;
+        &:hover{
+          background-color: #a0d0ec;
+        }
+      }
+      .cannotsearch{
+        width: 30px;
+        height: 30px;
+        margin: 0px 0px 0px 5px;
+        cursor: wait;
+        fill: #ff0000;
+      }
+    }
+    .addrstatebox{
+      .addrstate{
+        display: block;
+        font-size: 0.8rem;
+      }
+      .addrstateselector{
+        padding: 2px 2px;
+        margin: 0px 0px 10px 0px;
+        font-size: 1.2rem;
+      }
+    }
+  }
+  .addressfield{
+    .addr1box{
+      .addr1{
+        display: block;
+        font-size: 0.8rem;
+      }
+      .customeraddr1{
+        padding: 2px;
+        margin: 0px 0px 10px 0px;
+        // width: calc(100vw - 60px);
+        font-size: 1.2rem;
+      }
+    }
+    .addr2box{
+      .addr2{
+        display: block;
+        font-size: 0.8rem;
+      }
+      .customeraddr2{
+        padding: 2px;
+        margin: 0px 0px 10px 0px;
+        // width: calc(100vw - 60px);
+        font-size: 1.2rem;
+      }
+    }
+    .addr3box{
+      .addr3{
+        display: block;
+        font-size: 0.8rem;
+      }
+      .customeraddr3{
+        padding: 2px;
+        margin: 0px 0px 10px 0px;
+        // width: calc(100vw - 60px);
+        font-size: 1.2rem;
+      }
+    }
+  }
+  .itemfield{
+    .flexitems{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      padding-top: 5px;
+      svg{
+        margin: 0px 5px;
+        width: 20px;
+        height: 20px;
+      }
+      .customeremail{
+        width: 150px;
+      }
+      .customerphone{
+        width: 150px;
+      }
+    }
+    .shoppane{
+      margin: 10px 0px 0px 0px;
+      display: inline-block;
+      .customershop{
+        display: none;
+      }
+      .customershop + label{
+        display: inline-block;
+        padding: 5px 10px;
+        border: solid 1px #acacac;
+      }
+      .customershop:checked + label{
+        border: solid 1px #22b5da;
+        background-color: #22b5da;
+      }
+    }
+    .genderpane{
+      margin: 10px 0px 10px 0px;
+      display: inline-block;
+      .customergender{
+        display: none;
+      }
+      .customergender + label{
+        display: inline-block;
+        padding: 5px 10px;
+        border: solid 1px #acacac;
+      }
+      .customergender:checked + label{
+        border: solid 1px #22b5da;
+        background-color: #22b5da;
+      }
+    }
+  }
+}
+
+// @media screen and(min-width: 600px) {
+@media (min-width: ($tablet)) {
+  .customerinfoarea{
+    margin: 10px 10px 0px 10px;
+    display:grid;
+    grid-template-columns: 340px 280px;
+    grid-template-rows: 50px 50px 50px 60px 60px 40px;
+  }
+  .namefield{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    .suggestbox{
+      position: absolute;
+      top: 38px;
+      left: 0px;
+      border: solid 1px #000000;
+      background-color: #ffffff;
+      max-height: 180px;
+      overflow-y: auto;
+      .customeritem{
+        padding: 15px 10px 5px 10px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        &:hover{
+          background-color: #e2ec85;
+        }
+      }
+    }
+  }
+
+  .knnamefield{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .emailfield{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+
+  .phonefield{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+
+  
+  .parentnamefield{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .zipcodefield{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 4;
+    grid-row-end: 5;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .addressfield{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .shopfields{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 6;
+    grid-row-end: 7;
+  }
+  .genderfields{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 7;
+    grid-row-end: 8;
+  }
+  .qrfield{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 6;
+    grid-row-end: 7;
+  }
+  .sensorfield{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 7;
+    grid-row-end: 8;
+  }
+  .itemfield{
+    // .name{
+    //   display: inline-block;
+    //   width: 100px;
+    // }
+    .familyname{
+      display: block;
+      font-size: 0.6rem;
+    }
+    .givenname{
+      display: block;
+      font-size: 0.6rem;
+    }
+    .customerfamilyname{
+      width: 150px;
+    }
+    .frameblue{
+      border-color: #0000ff;
+      &:focus{
+        outline-color: #0000ff;
+      }
+    }
+    .customergivenname{
+      width: 150px;
+    }
+    .familyknname{
+      display: block;
+      font-size: 0.6rem;
+    }
+    .givenknname{
+      display: block;
+      font-size: 0.6rem;
+    }
+    .customerfamilyknname{
+      width: 150px;
+    }
+    .customergivenknname{
+      width: 150px;
+    }
+    .email{
+      display: block;
+      font-size: 0.6rem;
+      span{
+        color: #ff0000;
+        font-weight: bold;
+      }
+    }
+    .customeremail{
+      width: 200px;
+      // border-color: #ff0000;
+      // &:focus{
+      //   outline-color: #ff0000;
+      // }
+    }
+    .phone{
+      display: block;
+      font-size: 0.6rem;
+      span{
+        color: #ff0000;
+        font-weight: bold;
+      }
+    }
+    .customerphone{
+      width: 200px;
+    }
+    .parentfamilyname{
+      display: block;
+      font-size: 0.6rem;
+    }
+    .parentgivenname{
+      display: block;
+      font-size: 0.6rem;
+    }
+    .parentcustomerfamilyname{
+      border-color: #0000ff;
+      width: 150px;
+      &:focus{
+        outline-color: #0000ff;
+      }
+    }
+    .parentcustomergivenname{
+      width: 150px;
+    }
+    .zipcode{
+      display: block;
+      font-size: 0.6rem;
+    }
+    .zipcodebox{
+      display:flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      padding-right:5px;
+      .customerzipcode{
+        margin-top: 3px;
+        width: 80px;
+      }
+      .cansearch{
+        width: 22px;
+        height: 22px;
+        margin: 0px 0px 0px 0px;
+        cursor: pointer;
+        &:hover{
+          background-color: #a0d0ec;
+        }
+      }
+      .cannotsearch{
+        width: 22px;
+        height: 22px;
+        margin: 0px 0px 0px 0px;
+        cursor: wait;
+        fill: #ff0000;
+      }
+    }
+    .addrstate{
+      margin-left: 5px;
+      display: block;
+      font-size: 0.6rem;
+    }
+    .addrstateselector{
+      margin-left: 5px;
+      padding: 2px 2px;
+    }
+    .addr1{
+      display: block;
+      font-size: 0.6rem;
+    }
+    .customeraddr1{
+      width: 180px;
+    }
+    .addr2{
+      display: block;
+      font-size: 0.6rem;
+    }
+    .customeraddr2{
+      width: 180px;
+    }
+    .addr3{
+      display: block;
+      font-size: 0.6rem;
+    }
+    .customeraddr3{
+      width: 170px;
+    }
+    .shoppane{
+      display: inline-block;
+      .customershop{
+        display: none;
+      }
+      .customershop + label{
+        display: inline-block;
+        font-size: 0.8rem;
+        padding: 5px 10px;
+        border: solid 1px #acacac;
+      }
+      .customershop:checked + label{
+        border: solid 1px #22b5da;
+        background-color: #22b5da;
+      }
+    }
+    .genderpane{
+      display: inline-block;
+      .customergender{
+        display: none;
+      }
+      .customergender + label{
+        display: inline-block;
+        font-size: 0.8rem;
+        padding: 5px 10px;
+        border: solid 1px #acacac;
+      }
+      .customergender:checked + label{
+        border: solid 1px #22b5da;
+        background-color: #22b5da;
+      }
+    }
+  }
+  .limitedcustomerinfoarea{
+    margin: 10px 10px 0px 10px;
+    .familyname{
+      margin-right: 10px;
+    }
+    .leftarea{
+      display: inline-block;
+      .shopfields{
+        margin: 10px;
+      }
+      .genderfields{
+        margin: 10px;
+      }
+    }
+    .rightarea{
+      display: inline-block;
+      .qrfield{
+        margin: 10px;
+      }
+      .sensorfield{
+        margin: 10px;
+      }
+    }
+  }
+  .hidden{
+    display: none;
+  }
+
+}
+
+.qrreader{
+  position: absolute;
+  top: 100px;
+  left: 0px;
+  right: 0px;
+  z-index: 500;
+}
+
+.dialogback{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #00000033;
+  .dialogwindow{
+    margin: 70px auto;
+    padding: 10px;
+    // @media screen and(max-width: 600px) {
+    @media (max-width: ($tablet)) {
+      width: calc(100% - 40px);
+    }
+    // @media screen and(min-width: 600px) {
+    @media (min-width: ($tablet)) {
+      width: 400px;
+    }
+    background-color: #ffffff;
+    .dialogtitle{
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    .dialogcontent{
+      margin: 10px 0px;
+      label{
+        font-size: 0.8rem;
+      }
+      input{
+        margin-left: 5px;
+        width:70px;
+      }
+      .searchresults{
+        margin: 10px 0px;
+        max-height: 200px;
+        overflow-y: auto;
+        .searchresult{
+          font-size: 0.8rem;
+          text-decoration: underline;
+          color:#0000ff;
+          cursor: pointer;
+          &:hover{
+            color: #ff0000;
+          }
+          &:active{
+            color: #ff0000;
+          }
+        }
+        .searchnoresult{
+          padding: 3px;
+          font-size: 0.8rem;
+          color: #ffffff;
+          background-color: #ff0000;
+        }
+      }
+    }
+    .actionbutton{
+      width: 100%;
+    }
+  }
+}
+
+.sensordialogback{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #00000033;
+  .sensorwindow{
+    margin: 100px auto;
+    padding: 10px;
+    // @media screen and(max-width: 600px) {
+    @media (max-width: ($tablet)) {
+      width: calc(100% - 40px);
+    }
+    // @media screen and(min-width: 600px) {
+    @media (min-width: ($tablet)) {
+        width: 400px;
+    }
+    background-color: #ffffff;
+    .dlgtitle{
+      font-size: 0.8rem;
+    }
+    input[type=text]{
+      width: 300px;
+      margin-right: 10px;
+    }
+    .actionbox{
+      margin-top: 20px;
+      button{
+        width: 100%;
+      }
+    }
+  }
+}

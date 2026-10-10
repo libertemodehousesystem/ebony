@@ -1,0 +1,46 @@
+@if (showQr()) {
+  <div>
+    {{ selectedVerification()?.email }}
+  </div>
+}
+@if (showQr()) {
+  <qrcode
+    class="qr-cart"
+    [qrdata]="selectedVerification().url"
+    [width]="200"
+    [errorCorrectionLevel]="'M'"
+  ></qrcode>
+}
+@if (showQr()) {
+  <button (click)="closeQr()">閉じる</button>
+}
+<br />
+
+<table border="1">
+  <thead>
+    <th>URL</th>
+    <th>メールアドレス</th>
+    <th>認証番号</th>
+    <th>更新日時</th>
+  </thead>
+  <tbody>
+    @for (v of verificationsWithUrl(); track v) {
+      <tr class="list">
+        <td>
+          <button (click)="openQr(v)">QR表示</button>
+        </td>
+        <td>
+          <span>{{ v.email }}</span>
+        </td>
+        <td>
+          <span>{{ v.digits }}</span>
+        </td>
+        <td>
+          <span>{{
+            v.created_at ? (v.created_at.toDate() | date: 'yyyy年MM月dd日 HH:mm:ss') : ''
+          }}</span>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

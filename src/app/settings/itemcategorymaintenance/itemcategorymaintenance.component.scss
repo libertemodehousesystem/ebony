@@ -1,0 +1,137 @@
+@use '../../commondesign' as *;
+
+.categoryarea{
+  .shopselectorplate{
+    margin: 10px 20px;
+    label{
+      display: block;
+      font-size: 0.6rem;
+    }
+    select{
+      padding : 5px;
+    }
+  }
+  .categorypanes{
+    margin: 10px;
+    .addsection{
+      font-size: 0.8rem;
+      border-bottom: solid 3px $liberte-default;
+      margin: 10px 0px;
+    }
+    .categorypane{
+      margin: 5px;
+      padding: 5px;
+      background-color: #dbdbdb;
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      .addpane{
+        grid-column-start: 1;
+        grid-column-end: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        .addcategory{
+          font-size: 32px;
+          border-radius: 50%;
+          text-align: center;
+          &:hover{
+            background-color: $liberte-active;
+          }
+        }
+      }
+      .indexpane{
+        grid-column-start: 1;
+        grid-column-end: 2;
+        margin-left: 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        .indexcaption{
+          line-height: 40px;
+          margin-right: 5px;
+        }
+        .previcon{
+          display: block;
+          width: 16px;
+          height: 16px;
+          padding: 2px;
+          border-radius: 50%;
+          &:hover{
+            background-color: $liberte-active;
+          }
+        }
+        .nexticon{
+          display: block;
+          width: 16px;
+          height: 16px;
+          padding: 2px;
+          border-radius: 50%;
+          &:hover{
+            background-color: $liberte-active;
+          }
+        }
+        .indexfirst{
+          visibility: hidden;
+        }
+        .indexlast{
+          visibility: hidden;
+        }
+      }
+      .contentpane{
+        grid-column-start: 2;
+        grid-column-end: 3;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-left: 5px;
+        .itemfield{
+          margin: 0px 10px 0px 0px;
+          label{
+            display: block;
+            font-size: 0.6rem;
+          }
+        }
+      }
+    }
+  }
+  .addsection{
+    margin: 10px 10px 0px 10px;
+    font-size: 0.8rem;
+    border-bottom: solid 3px $liberte-default;
+  }
+  .originalpanes{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    .categorypane{
+      flex: 0 0 auto;
+      margin: 5px;
+      padding: 5px;
+      border: solid 1px #000000;
+      .addicon{
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-right: 5px;
+        &:hover{
+          border-radius: 50%;
+          &:hover{
+            background-color: $liberte-active;
+            box-shadow: 0 0 2px 2px $liberte-active;
+            color: #ffffff;
+          }
+        }
+      }
+      .categoryname{
+        display: inline-block;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}

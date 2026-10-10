@@ -1,0 +1,551 @@
+@use '../commondesign' as *;
+
+$tablet: 600px;
+
+.measuringarea{
+  width: 100vw;
+  height: calc(100vh - 50px);
+  overflow-y: scroll;
+  .measuringplate{
+    margin: 30px auto 330px auto;
+    // @media screen and(max-width: 600px) {
+    @media (max-width: ($tablet)) {
+      width: calc(100% - 20px);
+    }
+    // @media screen and(min-width: 600px) {
+    @media (min-width: ($tablet)) {
+      width: calc(100% - 20px);
+      max-width: 600px;
+    }
+  }
+  .routingbox{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-left: 20px;
+    .routingbutton{
+      user-select: none;
+      height: 60px;
+      width: 60px;
+      display: table;
+      margin: 10px 5px 20px 5px;
+      padding: 5px;
+      font-size: 0.8rem;
+      border:solid 1px #000000;
+      cursor: pointer;
+      &:hover{
+        background-color: #f89bca;
+      }
+      &:active{
+        background-color: #f89bca;
+      }
+      .textcell{
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+      }
+    }
+  }
+  .fittingpaneouter{
+    position: relative;
+  }
+  .mask{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    // padding: 5px;
+    background-color: rgb(0, 0, 0, 0.3);
+    text-align: right;
+    color: #ff0000;
+    font-weight: bold;
+  }
+  // .fixpane{
+  //   position: relative;
+  //   // margin: 0px 10px;
+  //   padding: 0px 10px;
+  // }
+  // .scrollpane{
+  //   position: relative;
+  //   border-top: solid 1px #000000;
+  //   margin-top: 20px;
+  //   padding: 0px 10px 20px 10px;
+  //   height: calc(100vh - 560px);
+  //   overflow-y: auto;
+  // }
+  .fittingpane{
+    margin-top: 20px;
+    .measuring{
+      .measuringpoint{
+        padding: 5px;
+        border-left: solid 3px $liberte-default;
+        border-bottom: solid 1px $liberte-default;
+      }
+      .extraaccordion{
+        padding: 5px 10px;
+        font-size: 0.8rem;
+        margin: 0px 10px;
+        background-color: #81dfe7;
+        cursor: pointer;
+        user-select: none;
+      }
+      .extraaccordion[accordion=close]::after{
+        margin: 0px 5px;
+        content: "▼";
+      }
+      .extraaccordion[accordion=open]::after{
+        margin: 0px 5px;
+        content: "▲";
+      }
+      .extraaccordion[accordion=close] + .extrameasuring{
+        margin: 0px 10px;
+        padding: 0px;
+        height: 0px;
+        overflow: hidden;
+      }
+      .extraaccordion[accordion=open] + .extrameasuring{
+        margin: 0px 10px;
+        padding: 10px;
+        height: auto;
+        background-color: #b7e7eb;
+      }
+      .itemfield{
+        margin: 10px 0px;
+        .fixpointlabel{
+          display: inline-block;
+          margin: 0px 10px;
+          font-size: 1.2rem;
+          width: 100px;
+        }
+        .fixpointinput[type=text]{
+          font-size: 24px;
+          width: 70px;
+          text-align: right;
+        }
+        .flexpointname{
+          display: inline-block;
+          .flexpointlabel{
+            display: block;
+            font-size: 0.6rem;
+          }
+          .flexpointinput{
+            display: block;
+            outline: none;
+            border: none;
+            border-bottom: solid 1px #6ec44c;
+          }
+        }
+        .flexpointmeasuring{
+          display: inline-block;
+          margin-left: 5px;
+          .flexpointlabel{
+            display: block;
+            font-size: 0.6rem;
+          }
+          .flexpointinput{
+            display: block;
+            outline: none;
+            border: none;
+            border-bottom: solid 1px #6ec44c;
+            width: 50px;
+            text-align: right;
+          }
+        }
+        // .matashitafocus{
+        //   box-shadow: 0px 0px 10px 5px #cb141b;
+        // }
+        span{
+          display: inline-block;
+          margin-left: 10px;
+          font-size: 0.8rem;
+          margin-right: 5px;
+        }
+      }
+    }
+    .itemplate{
+      margin-top: 20px;
+      .itemheader{
+        padding: 5px;
+        border-left: solid 3px $liberte-default;
+        border-bottom: solid 1px $liberte-default;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        .itemname{
+          max-width: 400px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .itemclear{
+          display: table;
+          margin-left: 10px;
+          .inner{
+            display: table-cell;
+            font-size: 0.7rem;
+            text-decoration: underline;
+            vertical-align: middle;
+            color: #0000ff;
+            cursor: pointer;
+            &:hover{
+              color: #ff0000;
+            }
+            &:active{
+              color: #ff0000;
+            }
+          }
+        }
+        .itemamountlabel{
+          margin-left: auto;
+          display: table;
+          .inner{
+            display: table-cell;
+            font-size: 0.8rem;
+            vertical-align: middle;
+            padding-right: 10px;
+            user-select: none;
+          }
+        }
+        .amountadjust{
+          padding: 3px;
+          background-color: #d3e68e;
+          border-radius: 50%;
+          font-size: 0.8rem;
+          font-weight: bold;
+          width: 20px;
+          height: 20px;
+          text-align: center;
+          cursor: pointer;
+          user-select: none;
+          &:active{
+            background-color: #e2c976;
+          }
+        }
+        .itemamount{
+          padding: 0px 5px;
+          width: 30px;
+          text-align: right;
+          border-bottom: solid 1px #000000;
+        }
+      }
+      .variationpanels{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+      .variationpanel{
+        input[type=radio]{
+          display: none;
+        }
+        input[type=radio] + label{
+          position: relative;
+          margin: 5px;
+          display: table;
+          width: 70px;
+          height: 70px;
+          border: solid 2px #00000000;
+          .variationcell{
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+          }
+          .checkmark{
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            visibility: hidden;
+            color:#ffffff;
+            background-color: #ff0000;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+          }
+        }
+        input[type=radio]:checked + label{
+          border: solid 2px #ff0000;
+          .checkmark{
+            visibility: visible;
+          }
+        }
+      }
+      .diffitemheader{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        background-color: #b7e7eb;
+        .itemname{
+          padding: 5px;
+        }
+        .itemamountbox{
+          margin-left: auto;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          align-items: center;
+          .itemamountlabel{
+            font-size: 0.8rem;
+            margin-right: 5px;
+          }
+          .amounticon{
+            border-radius: 50%;
+            font-size: 14px;
+            width: 14px;
+            height: 14px;
+            padding: 2px;
+            text-align: center;
+            line-height: 14px;
+            user-select: none;
+          }
+          .canaomuntcange{
+            background-color: #d3e68e;
+            cursor: pointer;
+            &:hover{
+              background-color: #e2c976;
+            }
+            &:active{
+              background-color: #e2c976;
+            }
+          }
+          .cannotaomuntcange{
+            background-color: #c8c8c8;
+            cursor: not-allowed;
+          }
+          .itemamount{
+            padding: 0px 5px;
+            width: 30px;
+            text-align: right;
+            border-bottom: solid 1px #000000;
+          }
+          .addshoppingcart{
+            margin-left: 30px;
+            svg{
+              background-color: #d3e68e;
+              padding: 3px;
+              width: 20px;
+              height: 20px;
+              &:hover{
+                background-color: #e2c976;
+              }
+              &:active{
+                background-color: #e2c976;
+              }
+            }
+          }
+        }
+
+      }
+      .diffvariationpanels{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+      .diffvariationpanel{
+        input[type=radio]{
+          display: none;
+        }
+        input[type=radio] + label{
+          position: relative;
+          margin: 5px;
+          display: table;
+          width: 70px;
+          height: 70px;
+          border: solid 2px #00000000;
+          .variationcell{
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+          }
+          .checkmark{
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            visibility: hidden;
+            color:#ffffff;
+            background-color: #ff0000;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+          }
+        }
+        input[type=radio]:checked + label{
+          border: solid 2px #ff0000;
+          .checkmark{
+            visibility: visible;
+          }
+        }
+      }
+      .selectitembox{
+        margin: 5px 10px;
+        padding: 5px 10px;
+        background-color: #d0edf0;
+        .variationselection{
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          padding: 5px 0px;
+          .variationname{
+            margin-right: 20px;
+          }
+          .amounticon{
+            border-radius: 50%;
+            font-size: 14px;
+            width: 14px;
+            height: 14px;
+            padding: 2px;
+            text-align: center;
+            line-height: 14px;
+            user-select: none;
+          }
+          .canaomuntcange{
+            background-color: #d3e68e;
+            cursor: pointer;
+            &:hover{
+              background-color: #e2c976;
+            }
+            &:active{
+              background-color: #e2c976;
+            }
+          }
+          .cannotaomuntcange{
+            background-color: #c8c8c8;
+            cursor: not-allowed;
+          }
+          .itemamount{
+            padding: 0px 5px;
+            width: 30px;
+            text-align: right;
+            border-bottom: solid 1px #000000;
+          }
+          .variationdelete{
+            margin-left: 20px;
+            font-size: 0.6rem;
+            text-decoration: underline;
+            color: #0000ff;
+            &:hover{
+              color: #ff0000;
+            }
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+  .remarkaccordion{
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    margin: 20px 10px 0px 10px;
+    background-color: #81dfe7;
+    cursor: pointer;
+    user-select: none;
+  }
+  .remarkaccordion[accordion=close]::after{
+    margin: 0px 5px;
+    content: "▼";
+  }
+  .remarkaccordion[accordion=open]::after{
+    margin: 0px 5px;
+    content: "▲";
+  }
+  .remarkaccordion[accordion=close] + .remarkmeasuring{
+    margin: 0px 10px;
+    padding: 0px;
+    height: 0px;
+    overflow: hidden;
+  }
+  .remarkaccordion[accordion=open] + .remarkmeasuring{
+    margin: 0px 10px;
+    padding: 10px;
+    height: auto;
+    background-color: #b7e7eb;
+  }
+  .measuringremark{
+    resize: none;
+    width: calc(100% - 5px);
+    height: 100px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  .addcartbutton{
+    margin-top: 20px;
+    width: 100%;
+    font-size: 1.2rem;
+  }
+  .returntop{
+    margin: 20px 0px;
+    font-size: 0.8rem;
+    text-decoration: underline;
+    text-align: center;
+    cursor: pointer;
+    color: #0000ff;
+    &:hover{
+      color: #ff0000;
+    }
+    &:active{
+      color: #ff0000;
+    }
+  }
+
+  .bottombox{
+    // position: absolute;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0px -1px 5px #000000;
+    overflow-y: scroll;
+    .bottomboxinner{
+      position: relative;
+      margin: 20px auto 40px auto;
+      // @media screen and(max-width: 600px) {
+      @media (max-width: ($tablet)) {
+        width: calc(100% - 20px);
+      }
+      // @media screen and(min-width: 600px) {
+      @media (min-width: ($tablet)) {
+        width: calc(100% - 20px);
+        max-width: 600px;
+      }
+      .matashitaerror{
+        color: #ff0000;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.dialogback{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.3);
+  .dialogwindow{
+    margin: 30% auto;
+    background-color: #ffffff;
+    width: 250px;
+    padding: 10px;
+    // border: solid 1px #000000;
+    .dialogmsg{
+      font-size: 0.8rem;
+      padding: 0px 0px;
+    }
+    .dialogmsg2{
+      font-size: 0.8rem;
+      padding: 0px 0px;
+      font-weight: bold;
+    }
+    .actionarea{
+      margin-top: 10px;
+      .closebutton{
+        width: 100%;
+      }
+    }
+  }
+}

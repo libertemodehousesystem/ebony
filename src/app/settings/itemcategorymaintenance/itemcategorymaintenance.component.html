@@ -1,0 +1,53 @@
+<ng-template #categorypane let-owncategory let-i="i" let-isfirst="isfirst" let-islast="islast">
+  <div class="indexpane">
+    <div class="indexcaption">{{ owncategory.category_index }}</div>
+    <div class="mover">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" [ngClass]="{'previcon':true,'indexfirst':isfirst}" (click)="prevmove(i)">
+        <path d="M0 0h24v24H0V0z" fill="none"/>
+        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" [ngClass]="{'nexticon':true,'indexlast':islast}" (click)="nextmove(i)">
+        <path d="M0 0h24v24H0V0z" fill="none"/>
+        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+      </svg>
+    </div>
+  </div>
+  <div class="contentpane">
+    <div class="itemfield">
+      <label>カテゴリ名</label>
+      <input type="text" [(ngModel)]="owncategory.category_name" (change)="updatecategory(owncategory)" [disabled]="true"/>
+    </div>
+    <div class="itemfield">
+      <label>表示名</label>
+      <input type="text" [(ngModel)]="owncategory.category_subname" (change)="updatecategory(owncategory)" />
+    </div>
+    <div class="itemfield">
+      <label>文字色</label>
+      <input type="color" [(ngModel)]="owncategory.category_color" (change)="updatecategory(owncategory)" />
+    </div>
+    <div class="itemfield">
+      <label>背景色</label>
+      <input type="color" [(ngModel)]="owncategory.category_background_color" (change)="updatecategory(owncategory)" />
+    </div>
+  </div>
+</ng-template>
+
+<div class="categoryarea">
+  <div class="categorypanes">
+    @for (category of categories(); track category.category_id; let i = $index; let first = $first; let last = $last) {
+      <div class="categorypane">
+        <ng-container *ngTemplateOutlet="categorypane; context: {$implicit: category, i: i, isfirst: first, islast: last}"></ng-container>
+      </div>
+    }
+  </div>
+  <div class="addsection">Squareから追加</div>
+  <div class="originalpanes">
+    @for (originalcategory of filteredoriginals(); track originalcategory.category_id; let i = $index) {
+      <div class="categorypane">
+        <div class="addicon" (click)="additemcategory(originalcategory,i)">＋</div>
+        <div class="categoryname">{{ originalcategory.category_name }}</div>
+      </div>
+    }
+  </div>
+  <button (click)="linkcategory()">カタログ連携</button>
+</div>

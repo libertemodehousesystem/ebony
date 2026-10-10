@@ -1,0 +1,43 @@
+<ng-template #shoppane let-ownshop>
+  <div class="leftplate">
+    <!-- <div class="addicon" (click)="registshop()">＋</div> -->
+  </div>
+  <div class="contentplate">
+    <div class="itemfields-row">
+      <div class="itemfield">
+        <label>ショップ名</label>
+        <input type="text" [(ngModel)]="ownshop.shop_name" (input)="changeshop(ownshop)" />
+      </div>
+      <div class="itemfield">
+        <label>お届けコードヘッダー</label>
+        <input type="text" [(ngModel)]="ownshop.deliveryshopheader" (input)="changeshop(ownshop)" />
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div class="shoparea">
+  @for (shop of shops(); track shop) {
+    <div class="shoppane">
+      <ng-container *ngTemplateOutlet="shoppane; context: { $implicit: shop }"></ng-container>
+    </div>
+  }
+  <div class="addcaption">新規登録</div>
+  <div class="shoppane">
+    <div class="addplate">
+      <div class="addicon" (click)="registshop()">＋</div>
+    </div>
+    <div class="contentplate">
+      <div class="itemfields-row">
+        <div class="itemfield">
+          <label>ショップ名</label>
+          <input type="text" [(ngModel)]="newShopName" />
+        </div>
+        <div class="itemfield">
+          <label>お届けコードヘッダー</label>
+          <input type="text" [(ngModel)]="newShopHeader" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

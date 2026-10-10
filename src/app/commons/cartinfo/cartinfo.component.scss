@@ -1,0 +1,491 @@
+@use '../../commondesign' as *;
+
+.cartinfoarea{
+  .cartcaption{
+    margin: 20px 0px;
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+  }
+  .platecaption{
+    margin: 5px 0px;
+    padding: 5px;
+    border-left: solid 3px $liberte-default;
+    border-bottom: solid 1px $liberte-default;
+  }
+  .measurementbox{
+    .measurementpane{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: baseline;
+      margin: 10px;
+      .measurementlabel{
+        font-size: 0.8rem;
+        width: 70px;
+      }
+      .measurementamount{
+        margin: 0px 10px;
+        padding: 0px 0px 0px 5px;
+        border-bottom: solid 1px #000000;
+      }
+      .measurementunit{
+        font-size: 0.8rem;
+      }
+      .underline{
+        width: 150px;
+        border-bottom: solid 1px #000000;
+      }
+    }
+    .extraaccordion{
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      margin: 0px 10px;
+      background-color: #81dfe7;
+      cursor: pointer;
+      user-select: none;
+    }
+    .extraaccordion[accordion=close]::after{
+      margin: 0px 5px;
+      content: "▼";
+    }
+    .extraaccordion[accordion=open]::after{
+      margin: 0px 5px;
+      content: "▲";
+    }
+    .extraaccordion[accordion=close] + .extrameasuring{
+      margin: 0px 10px;
+      padding: 0px;
+      height: 0px;
+      overflow: hidden;
+    }
+    .extraaccordion[accordion=open] + .extrameasuring{
+      margin: 0px 10px;
+      padding: 10px;
+      height: auto;
+      background-color: #b7e7eb;
+    }
+  }
+  .noitemmessage{
+    margin: 30px;
+    padding: 3px;
+    background-color: #ff0000;
+    color: #ffffff;
+  }
+  .cartitempane{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    border: solid 1px #000000;
+    margin: 10px;
+    padding: 5px;
+    .namepane{
+      .itemnameblock{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        .itemname{
+          display: inline-block;
+          font-weight: bold;
+          max-width: 340px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .delete{
+          display: inline-block;
+          margin-left: 10px;
+          font-size: 0.8rem;
+          text-decoration: underline;
+          color: #0000ff;
+          cursor: pointer;
+          &:hover{
+            color: #ff0000;
+          }
+          &:active{
+            color: #ff0000;
+          }
+        }
+      }
+      .variationname{
+        span{
+          display: inline-block;
+          margin-left: 5px;
+        }
+      }
+    }
+    .itemamountpricebox{
+      margin-left: auto;
+      .itemflexcenter{
+        display:flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+      }
+      .itemflexbottom{
+        display:flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: flex-end;
+      }
+      .itemamountlabel{
+        margin-right: 5px;
+        font-size: 0.8rem;
+      }
+      .itemamount{
+        font-weight: bold;
+        padding: 0px 5px;
+        text-decoration: underline;
+      }
+      .canamouticon{
+        font-size: 12px;
+        line-height: 14px;
+        text-align: center;
+        width: 14px;
+        height: 14px;
+        padding: 2px;
+        border-radius: 50%;
+        background-color: #d3e68e;
+        cursor: pointer;
+        user-select: none;
+      }
+      .cannotamouticon{
+        font-size: 12px;
+        line-height: 14px;
+        text-align: center;
+        width: 14px;
+        height: 14px;
+        padding: 2px;
+        border-radius: 50%;
+        background-color: #c8c8c8;
+        cursor: not-allowed;
+        user-select: none;
+      }
+      .itemtotalmoneylabeltable{
+        display: table;
+        margin-right: 5px;
+        .itemtotalmoneylabelcell{
+          display: table-cell;
+          font-size: 0.8rem;
+          vertical-align: bottom;
+        }
+      }
+      .itemtotalmoney{
+        .itemprice{
+          text-align: right;
+        }
+        .itemtax{
+          font-size: 0.6rem;
+        }
+      }
+      .itemtotalmoneyunittable{
+        display:table;
+        margin-left: 5px;
+        .itemtotalmoneyunitcell{
+          display: table-cell;
+          vertical-align: bottom;
+          font-size: 0.6rem;
+        }
+      }
+    }
+  }
+  .deliverbox{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 30px 10px 5px 10px;
+    padding: 10px;
+    background-color: #ecf1be;
+    .delivercautionbox{
+      margin-right: auto;
+      .delivercaution{
+        font-size: 0.8rem;
+        color: #ff0000;
+      }
+    }
+    .toggle{
+      display: inline-block;
+      width: 45px;
+      margin: 0px 15px 0px 0px;
+      input {
+        display: none;
+      }
+      input + label {
+        width: 45px;
+        height: 20px;
+        background: #ccc;
+        position: relative;
+        display: inline-block;
+        border-radius: 20px;
+        transition: 0.4s;
+        box-sizing: border-box;
+        &::after {
+          content: '';
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          border-radius: 100%;
+          left: 0;
+          top: 0;
+          z-index: 2;
+          background: #d1d0d0;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+          transition: 0.4s;
+          cursor: pointer;
+        }
+      }
+      input:checked + label {
+        background: #22b5da;
+        &::after{
+          left: 25px;
+        }
+      }
+    }
+    .delivercaption{
+      width: 80px;
+      text-align: center;
+      font-size: 1.0rem;
+      margin-right: 20px;
+    }
+    .deliverymoney{
+      width: 70px;
+      font-size: 1.0rem;
+      text-align: right;
+      span{
+        margin-left: 5px;
+        font-size: 0.6rem;
+      }
+    }
+  }
+  .deliverbox2{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 5px 10px 20px 10px;
+    padding: 10px;
+    background-color: #ecf1be;
+    .delivercautionbox{
+      margin-right: auto;
+      .delivercaution{
+        font-size: 0.8rem;
+        color: #ff0000;
+      }
+    }
+    .toggle{
+      display: inline-block;
+      width: 45px;
+      margin: 0px 15px 0px 0px;
+      input {
+        display: none;
+      }
+      input + label {
+        width: 45px;
+        height: 20px;
+        background: #ccc;
+        position: relative;
+        display: inline-block;
+        border-radius: 20px;
+        transition: 0.4s;
+        box-sizing: border-box;
+        &::after {
+          content: '';
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          border-radius: 100%;
+          left: 0;
+          top: 0;
+          z-index: 2;
+          background: #d1d0d0;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+          transition: 0.4s;
+          cursor: pointer;
+        }
+      }
+      input:checked + label {
+        background: #22b5da;
+        &::after{
+          left: 25px;
+        }
+      }
+    }
+    .delivercaption{
+      width: 80px;
+      text-align: center;
+      font-size: 1.0rem;
+      margin-right: 20px;
+    }
+    .deliverymoney{
+      width: 70px;
+      font-size: 1.0rem;
+      text-align: right;
+      span{
+        margin-left: 5px;
+        font-size: 0.6rem;
+      }
+    }
+  }
+  .cartmoneybox{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 0px 10px 30px 10px;
+    padding: 10px;
+    background-color: #ebf596;
+    .totalmoneylabel{
+      font-size: 1.4rem;
+    }
+    .totalmoneyamount{
+      margin-left: auto;
+      // .deliverymoney{
+      //   font-size: 0.8rem;
+      //   text-align: right;
+      //   span{
+      //     margin-left: 5px;
+      //     font-size: 0.6rem;
+      //   }
+      // }
+      .totaltaxmoney{
+        font-size: 0.8rem;
+        text-align: right;
+        span{
+          margin-left: 5px;
+          font-size: 0.6rem;
+        }
+      }
+      .totalmoney{
+        font-size: 1.0rem;
+        font-weight: bold;
+        text-align: right;
+        span{
+          margin-left: 5px;
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  background: $liberte-default;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader {
+  color: $liberte-default;
+  text-indent: -9999em;
+  margin: 88px auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 1.5em;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+
+.postageloader {
+  font-size: 10px;
+  margin-right: 10px;
+  text-indent: -9999em;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background: $liberte-default;
+  background: -moz-linear-gradient(left, $liberte-default 10%, rgba(255, 255, 255, 0) 42%);
+  background: -webkit-linear-gradient(left, $liberte-default 10%, rgba(255, 255, 255, 0) 42%);
+  background: -o-linear-gradient(left, $liberte-default 10%, rgba(255, 255, 255, 0) 42%);
+  background: -ms-linear-gradient(left, $liberte-default 10%, rgba(255, 255, 255, 0) 42%);
+  background: linear-gradient(to right, $liberte-default 10%, rgba(255, 255, 255, 0) 42%);
+  position: relative;
+  -webkit-animation: load3 1.4s infinite linear;
+  animation: load3 1.4s infinite linear;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.postageloader:before {
+  width: 50%;
+  height: 50%;
+  background: $liberte-default;
+  border-radius: 100% 0 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+}
+.postageloader:after {
+  background: #ecf1be;
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  content: '';
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+@-webkit-keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load3 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

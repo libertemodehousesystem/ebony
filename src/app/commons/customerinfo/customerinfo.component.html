@@ -1,0 +1,281 @@
+<div [ngClass]="{ customerinfoarea: true, hidden: limited() }">
+  <div class="namefield">
+    <div class="itemfield">
+      @if (cansearch()) {
+        <label class="familyname">生徒 姓<span style="color: #0000ff">？</span></label>
+      }
+      @if (!cansearch()) {
+        <label class="familyname">生徒 姓</label>
+      }
+      <input
+        [ngClass]="{ customerfamilyname: true, frameblue: cansearch() }"
+        type="text"
+        [(ngModel)]="customerinfo().customer_family_name"
+        (change)="suggestion($event.target.value)"
+        [attr.disabled]="fromSearchDlg() ? 'true' : null"
+      />
+      @if (customers().length > 0) {
+        <div class="suggestbox">
+          @for (customer of customers(); track customer) {
+            <div>
+              <div class="customeritem" (click)="selectcustomer(customer)">
+                <ruby
+                  >{{ customer.customer_family_name
+                  }}<rt>{{ customer.customer_family_kn_name }}</rt></ruby
+                >
+                <ruby
+                  >{{ customer.customer_given_name
+                  }}<rt>{{ customer.customer_given_kn_name }}</rt></ruby
+                >
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+    <div class="itemfield">
+      <label class="givenname">生徒 名</label>
+      <input
+        class="customergivenname"
+        type="text"
+        [(ngModel)]="customerinfo().customer_given_name"
+        (change)="suggestion($event.target.value)"
+        [attr.disabled]="fromSearchDlg() ? 'true' : null"
+      />
+    </div>
+  </div>
+  <div class="knnamefield">
+    <div class="itemfield">
+      <label class="familyknname">生徒 姓（カナ）</label>
+      <input
+        class="customerfamilyknname"
+        type="text"
+        [(ngModel)]="customerinfo().customer_family_kn_name"
+      />
+    </div>
+    <div class="itemfield">
+      <label class="givenknname">生徒 名（カナ）</label>
+      <input
+        class="customergivenknname"
+        type="text"
+        [(ngModel)]="customerinfo().customer_given_kn_name"
+      />
+    </div>
+  </div>
+  <div class="emailfield">
+    <div class="itemfield">
+      <label class="email">メールアドレス<span>※</span></label>
+      <input class="customeremail" type="text" [(ngModel)]="customerinfo().email" />
+    </div>
+  </div>
+  <div class="phonefield">
+    <div class="itemfield">
+      <label class="phone">電話番号<span>※</span></label>
+      <input class="customerphone" type="text" [(ngModel)]="customerinfo().phone" />
+    </div>
+  </div>
+  <div class="parentnamefield">
+    <div class="itemfield">
+      <label class="parentfamilyname">保護者 姓</label>
+      <input
+        class="customerparentfamilyname"
+        type="text"
+        [(ngModel)]="customerinfo().customer_parent_family_name"
+      />
+    </div>
+    <div class="itemfield">
+      <label class="parentgivenname">保護者 名</label>
+      <input
+        class="customerparentgivenname"
+        type="text"
+        [(ngModel)]="customerinfo().customer_parent_given_name"
+      />
+    </div>
+  </div>
+  <div class="zipcodefield">
+    <div class="itemfield">
+      <label class="zipcode">郵便番号</label>
+      <div class="zipcodebox">
+        <input
+          class="customerzipcode"
+          type="text"
+          placeholder="0000000"
+          [(ngModel)]="customerinfo().zip_code"
+        />
+        @if (canedit()) {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            [ngClass]="{ cansearch: canzipcodesearch(), cannotsearch: !canzipcodesearch() }"
+            (click)="zipcodesearch()"
+          >
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path
+              d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+            />
+          </svg>
+        }
+      </div>
+    </div>
+    <div class="itemfield addrstatebox">
+      <label class="addrstate">都道府県</label>
+      <select class="addrstateselector" [(ngModel)]="customerinfo().addrstate">
+        @for (addrstate of addrstates; track addrstate) {
+          <option [value]="addrstate.caption">{{ addrstate.caption }}</option>
+        }
+      </select>
+    </div>
+  </div>
+  <div class="addressfield">
+    <div class="itemfield addr1box">
+      <label class="addr1">市区町村丁目</label>
+      <input class="customeraddr1" type="text" [(ngModel)]="customerinfo().addr1" />
+    </div>
+    <div class="itemfield addr2box">
+      <label class="addr2">番地以降</label>
+      <input class="customeraddr2" type="text" [(ngModel)]="customerinfo().addr2" />
+    </div>
+    <div class="itemfield addr3box">
+      <label class="addr3">建物名</label>
+      <input class="customeraddr3" type="text" [(ngModel)]="customerinfo().addr3" />
+    </div>
+  </div>
+  <div class="itemfield shopfields">
+    @for (shop of shops(); track shop) {
+      <div class="shoppane">
+        <input
+          class="customershop"
+          type="radio"
+          name="shop"
+          id="shop{{ shop.shop_id }}"
+          (change)="changeshop(shop)"
+          [checked]="customerinfo().shop_id == shop.shop_id"
+          [disabled]="!canedit()"
+        />
+        <label class="shopname" for="shop{{ shop.shop_id }}">{{ shop.shop_name }}</label>
+      </div>
+    }
+  </div>
+  <div class="itemfield genderfields">
+    @for (gender of genders; track gender) {
+      <div class="genderpane">
+        <input
+          class="customergender"
+          type="radio"
+          name="gender"
+          id="gender{{ gender.gender_id }}"
+          (change)="changegender(gender)"
+          [checked]="customerinfo().gender_id == gender.gender_id"
+          [disabled]="!canedit()"
+        />
+        <label class="gendercaption" for="gender{{ gender.gender_id }}">{{ gender.caption }}</label>
+      </div>
+    }
+  </div>
+  @if (cansensor()) {
+    <div class="itemfield qrfield">
+      <button (click)="showqrcodereader()">QRコード読取</button>
+    </div>
+  }
+  @if (cansensor()) {
+    <div class="itemfield sensorfield">
+      <button (click)="showsensordevice()">センサーデバイス</button>
+    </div>
+  }
+</div>
+<div [ngClass]="{ limitedcustomerinfoarea: true, hidden: !limited() }">
+  <div class="limiteditemfield">
+    <label class="familyname">生徒 氏名</label>
+    <input
+      [ngClass]="{ customerfamilyname: true, frameblue: cansearch() }"
+      type="text"
+      [value]="customerinfo().customer_family_name + customerinfo().customer_given_name"
+      (change)="suggestion($event.target.value)"
+      [attr.disabled]="fromSearchDlg() ? 'true' : null"
+      [readonly]="true"
+    />
+  </div>
+  <div class="leftarea">
+    <div class="itemfield shopfields">
+      @for (shop of shops(); track shop) {
+        <div class="shoppane">
+          <input
+            class="customershop"
+            type="radio"
+            name="limitedshop"
+            id="shop{{ shop.shop_id }}"
+            (change)="changeshop(shop)"
+            [checked]="customerinfo().shop_id == shop.shop_id"
+            [disabled]="!canedit()"
+          />
+          <label class="shopname" for="shop{{ shop.shop_id }}">{{ shop.shop_name }}</label>
+        </div>
+      }
+    </div>
+    <div class="itemfield genderfields">
+      @for (gender of genders; track gender) {
+        <div class="genderpane">
+          <input
+            class="customergender"
+            type="radio"
+            name="limitedgender"
+            id="gender{{ gender.gender_id }}"
+            (change)="changegender(gender)"
+            [checked]="customerinfo().gender_id == gender.gender_id"
+            [disabled]="!canedit()"
+          />
+          <label class="gendercaption" for="gender{{ gender.gender_id }}">{{
+            gender.caption
+          }}</label>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="rightarea">
+    @if (cansensor()) {
+      <div class="itemfield qrfield">
+        <button (click)="showqrcodereader()">QRコード読取</button>
+      </div>
+    }
+    @if (cansensor()) {
+      <div class="itemfield sensorfield">
+        <button (click)="showsensordevice()">センサーデバイス</button>
+      </div>
+    }
+  </div>
+</div>
+@if (cansensor()) {
+  <div class="qrreader" [style.visibility]="qrcodereadervisibility()">
+    <app-qrreaderdlg #QRDialog [title]="'お客様情報読込'"></app-qrreaderdlg>
+  </div>
+}
+<div class="dialogback" [style.visibility]="zipaddrsearchvisibility()">
+  <div class="dialogwindow">
+    <div class="dialogtitle">郵便番号検索結果</div>
+    <div class="dialogcontent">
+      <label>郵便番号</label>
+      <input [value]="customerinfo().zip_code" [readonly]="true" />
+      <div class="searchresults">
+        @for (searchedaddr of searchedaddrs(); track searchedaddr) {
+          <div class="searchresult" (click)="addressclick(searchedaddr)">
+            {{ searchedaddr.state }}{{ searchedaddr.addr1 }}
+          </div>
+        }
+        @if (searchedaddrs().length == 0) {
+          <div class="searchnoresult">住所が見つかりませんでした。</div>
+        }
+      </div>
+    </div>
+    <button class="actionbutton" (click)="closezipaddrsearch()">閉じる</button>
+  </div>
+</div>
+<div class="sensordialogback" [style.visibility]="sensorreadervisibility()">
+  <div class="sensorwindow">
+    <div class="dlgtitle">センサーから読み取る</div>
+    <input #SensorInput type="text" [(ngModel)]="sensortext" />
+    <button (click)="readsensor()">解読</button>
+    <div class="actionbox">
+      <button (click)="closesensor()">閉じる</button>
+    </div>
+  </div>
+</div>

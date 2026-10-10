@@ -1,0 +1,38 @@
+@use '../commondesign' as *;
+
+.settingsarea{
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  grid-template-rows: auto;
+  .sidemenu{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    height: calc(100vh - 50px);
+    border-right: solid 1px #000000;
+    box-sizing: border-box;
+    padding-top: 10px;
+    .section{
+      font-size: 0.6rem;
+      font-weight: bold;
+      text-decoration: underline;
+      margin-left: 5px;
+      padding-top: 5px;
+    }
+    .menuitem{
+      font-size: 0.8rem;
+      padding: 5px;
+      cursor: pointer;
+      &:hover{
+        background-color: $liberte-active;
+        color: #ffffff;
+      }
+    }
+  }
+  .settingmain{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    // width: calc(100vw - 120px);
+    // height: calc(100vh - 50px);
+    background-color: #dddddd;
+  }
+}

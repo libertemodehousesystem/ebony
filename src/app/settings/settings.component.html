@@ -1,0 +1,28 @@
+<div class="settingsarea">
+  <div class="sidemenu">
+    <div class="section">システム設定</div>
+    <div class="menuitem" (click)="pagerouting('connectionmgr')">連携設定</div>
+    <div class="section">全体設定</div>
+    <div class="menuitem" (click)="pagerouting('shopmaint')">ショップ</div>
+    <div class="section">ショップ毎設定</div>
+    <div class="menuitem" (click)="pagerouting('itemcategorymaint')">商品カテゴリ</div>
+    <div class="menuitem" (click)="pagerouting('itemmaint')">商品アイテム</div>
+    <div class="menuitem" (click)="pagerouting('postagemaint')">送料選択</div>
+    <div class="menuitem" (click)="pagerouting('customersmgr')">顧客情報</div>
+    <div class="menuitem" (click)="pagerouting('cartmgr')">カート設定</div>
+    <div class="menuitem" (click)="pagerouting('printermgr')">プリント</div>
+    <div class="section">発注関連</div>
+    <div class="menuitem" (click)="pagerouting('orderingmgr')">発注リスト</div>
+    <div class="menuitem" (click)="pagerouting('deliverylist')">配送リスト</div>
+    <div class="section">開発テスト</div>
+    <div class="menuitem" (click)="pagerouting('qrcodetester')">QRコード</div>
+    <div class="menuitem" (click)="pagerouting('verifications')">メール送信一覧</div>
+    <div class="section">その他</div>
+    <div class="menuitem" (click)="pagerouting('extracustomermgr')">売上後顧客登録</div>
+    <div class="menuitem" (click)="pagerouting('funccheck')">機能確認</div>
+    <div class="menuitem" (click)="pagerouting('addmove')">住所移行</div>
+  </div>
+  <div classs="settingmain">
+    <router-outlet></router-outlet>
+  </div>
+</div>

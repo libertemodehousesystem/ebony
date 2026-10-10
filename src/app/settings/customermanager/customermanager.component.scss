@@ -1,0 +1,33 @@
+.customersmanegerarea{
+  padding: 10px;
+  width: calc(100vw - 160px);
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+  .actionplate{
+    margin: 10px 0px;
+  }
+  input[type=file]{
+    display: none;
+  }
+  .customersbox{
+    width: calc(100vw - 160px);
+    height: calc(100vh - 120px);
+    overflow: auto;
+    .customertable{
+      display:table;
+      white-space:nowrap;
+      .headerrow{
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+      .customerrow{
+        font-size: 0.8rem;
+        display:table-row;
+        .customercell{
+          display:table-cell;
+          padding: 5px 10px;
+        }
+      }
+    }
+  }
+}

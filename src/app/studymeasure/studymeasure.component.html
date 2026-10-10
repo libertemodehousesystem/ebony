@@ -1,0 +1,62 @@
+<div class="studyarea">
+  <button (click)="searchdevices()">機器の検出</button>
+  <button (click)="disconnectdevice()">機器の切断</button>
+  <div>
+    @for (blestructure of blestructures(); track blestructure) {
+      <div>
+        <div>service uuid: {{ blestructure.service_uuid }}</div>
+        @for (characteristic of blestructure.characteristics; track characteristic) {
+          <div>{{ characteristic }}</div>
+        }
+      </div>
+    }
+  </div>
+  <div>
+    <button (click)="loadcustomercartitems()">読み込み</button>
+  </div>
+  <div>
+    <table>
+      <thead>
+        @for (customer of customers(); track customer; let i = $index) {
+          <tr>
+            <td>{{ i }}</td>
+            <td>{{ customer.customer_family_name }}{{ customer.customer_given_name }}</td>
+            <td>
+              <div>{{ customer.customer_uid }}</div>
+              <div>{{ customer.customercart.square_order_id }}</div>
+            </td>
+            <td>{{ customer.customercart.earned_at }}</td>
+            <td>{{ customer.customercart.payment_method }}</td>
+            <td>
+              <div>{{ customer.customercart.total_money }}</div>
+              <div
+                [ngClass]="{
+                  amountclear: customer.customercart.total_money == customer.calcprice,
+                  amounterror: customer.customercart.total_money != customer.calcprice,
+                }"
+              >
+                {{ customer.calcprice }}
+              </div>
+            </td>
+            <td>{{ customer.customercart.receive_money }}</td>
+            <td>{{ customer.customercart.change_money }}</td>
+            <td><button (click)="calcorder(customer)">calc check</button></td>
+            <td>
+              <button (click)="registorderpay(customer)" [disabled]="!customer.canearning">
+                restore earning
+              </button>
+            </td>
+            <td>
+              <button (click)="refundrestoreearning(customer)" [disabled]="!customer.canearning">
+                refund
+              </button>
+            </td>
+          </tr>
+        }
+      </thead>
+    </table>
+  </div>
+  <div>
+    <button (click)="createuuid()">uuid</button>
+  </div>
+</div>

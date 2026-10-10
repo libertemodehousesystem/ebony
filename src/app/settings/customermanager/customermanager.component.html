@@ -1,0 +1,73 @@
+<div class="customersmanegerarea">
+  <div class="actionplate">
+    <button (click)="exportfile()">エクスポート</button>
+    <button (click)="openfile()">インポート</button>
+    <input #FileSetector type="file" (change)="importfile($event.target.files)" />
+  </div>
+  <div class="customersbox">
+    <div class="customertable">
+      <div class="customerrow headerrow">
+        <div class="customercell">
+          <ruby>生徒 姓<rt>フリガナ</rt></ruby>
+        </div>
+        <div class="customercell">
+          <ruby>生徒 名<rt>フリガナ</rt></ruby>
+        </div>
+        <div class="customercell">
+          <ruby>保護者 姓<rt>フリガナ</rt></ruby>
+        </div>
+        <div class="customercell">
+          <ruby>保護者 名<rt>フリガナ</rt></ruby>
+        </div>
+        <div class="customercell">郵便番号</div>
+        <div class="customercell">都道府県</div>
+        <div class="customercell">市区町村丁目</div>
+        <div class="customercell">番地以降</div>
+        <div class="customercell">建物名</div>
+        <div class="customercell">電話番号</div>
+        <div class="customercell">メールアドレス</div>
+        <div class="customercell">性別</div>
+        <div class="customercell">ショップ</div>
+      </div>
+      @for (customer of customers(); track customer) {
+        <div class="customerrow">
+          <div class="customercell">
+            <ruby
+              >{{ customer.customer_family_name
+              }}<rt>{{ customer.customer_family_kn_name }}</rt></ruby
+            >
+          </div>
+          <div class="customercell">
+            <ruby
+              >{{ customer.customer_given_name
+              }}<rt>{{ customer.customer_given_kn_name }}</rt></ruby
+            >
+          </div>
+          <div class="customercell">
+            <ruby
+              >{{ customer.customer_parent_family_name
+              }}<rt>{{ customer.customer_parent_family_kn_name }}</rt></ruby
+            >
+          </div>
+          <div class="customercell">
+            <ruby
+              >{{ customer.customer_parent_given_name
+              }}<rt>{{ customer.customer_parent_given_kn_name }}</rt></ruby
+            >
+          </div>
+          <div class="customercell">{{ customer.zip_code }}</div>
+          <div class="customercell">{{ customer.addrstate }}</div>
+          <div class="customercell">{{ customer.addr1 }}</div>
+          <div class="customercell">{{ customer.addr2 }}</div>
+          <div class="customercell">{{ customer.addr3 }}</div>
+          <div class="customercell">{{ customer.phone }}</div>
+          <div class="customercell">{{ customer.email }}</div>
+          <div class="customercell">{{ getgender(customer.gender_id) }}</div>
+          <div class="customercell">{{ getshop(customer.shop_id) }}</div>
+        </div>
+      }
+    </div>
+  </div>
+  <!-- <button (click)="getlinkcustomers()">顧客情報リンク</button> -->
+  <!-- <button (click)="opensearchdialog()">一文字検索</button> -->
+</div>

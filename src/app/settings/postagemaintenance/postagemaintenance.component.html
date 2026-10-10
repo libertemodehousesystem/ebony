@@ -1,0 +1,19 @@
+<div class="postagearea">
+  <div class="fieldbox">
+    <label>送料選択</label>
+    <select [(ngModel)]="selecteditemid" (change)="itemchange()">
+      @for (item of items(); track item) {
+        <option [value]="item.item_id">{{ item.item_name }}</option>
+      }
+    </select>
+  </div>
+  <div class="fieldbox">
+    <label>種類選択</label>
+    <select [(ngModel)]="selectedvariationid" (change)="variationchange()">
+      @for (variation of variations(); track variation) {
+        <option [value]="variation.variation_id">{{ variation.variation_name }}</option>
+      }
+    </select>
+  </div>
+  <button (click)="registpostage()">登録</button>
+</div>

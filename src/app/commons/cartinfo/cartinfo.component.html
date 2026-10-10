@@ -1,0 +1,204 @@
+@if (customerinfo().customer_uid) {
+  <div class="cartinfoarea">
+    @if (loading()) {
+      <div class="loader"></div>
+    }
+    @if (!loading()) {
+      <div>
+        <div class="platecaption">採寸</div>
+        <div class="measurementbox">
+          @if (customerinfo().gender_id == 1) {
+            <div class="measurementpane">
+              <div class="measurementlabel">股下</div>
+              <div class="measurementamount">{{ measurement().matashita }}</div>
+              <div class="measurementunit">cm</div>
+            </div>
+          }
+          @if (customerinfo().gender_id == 2) {
+            <div class="measurementpane">
+              <div class="measurementlabel">スカート丈</div>
+              <div class="measurementamount">{{ measurement().skirttake }}</div>
+              <div class="measurementunit">cm</div>
+            </div>
+          }
+          @if (customerinfo().gender_id == 2) {
+            <div class="measurementpane">
+              <div class="measurementlabel">股下</div>
+              <div class="measurementamount">{{ measurement().matashita }}</div>
+              <div class="measurementunit">cm</div>
+            </div>
+          }
+          <div class="extraaccordion" accordion="close" (click)="accordionclick($event)">
+            特別に測定が必要な箇所
+          </div>
+          <div class="extrameasuring">
+            <div class="measurementpane">
+              <div class="measurementlabel underline">{{ measurement().ext01_name }}　</div>
+              <div class="measurementamount extlength">{{ measurement().ext01_length }}</div>
+              <div class="measurementunit">cm</div>
+            </div>
+            <div class="measurementpane">
+              <div class="measurementlabel underline">{{ measurement().ext02_name }}　</div>
+              <div class="measurementamount extlength">{{ measurement().ext02_length }}</div>
+              <div class="measurementunit">cm</div>
+            </div>
+          </div>
+        </div>
+        @for (cartplate of filteredcartplates(); track cartplate) {
+          <div>
+            <div class="platecaption">{{ cartplate.caption }}</div>
+            @if (cartplate.cartitems.length == 0) {
+              <div class="noitemmessage">こちらの商品はカート内にありません</div>
+            }
+            @for (cartitem of cartplate.cartitems; track cartitem; let i = $index) {
+              <div>
+                <div class="cartitempane">
+                  <div class="namepane">
+                    <div class="itemnameblock">
+                      <div
+                        class="itemname"
+                        [style.background-color]="cartitem.postage.bg_color"
+                        [style.color]="cartitem.postage.font_color"
+                        title="{{ cartitem.item_name }}"
+                      >
+                        {{ cartitem.item_name }}
+                      </div>
+                      @if (editable()) {
+                        <div class="delete" (click)="removecartitem(cartplate.cartitems, i)">
+                          削除
+                        </div>
+                      }
+                    </div>
+                    <div class="variationname">
+                      {{ cartitem.variation_name }}
+                      @if (cartitem.matashita) {
+                        <span>{{ cartitem.matashita }}cm</span>
+                      }
+                    </div>
+                  </div>
+                  <div class="itemamountpricebox">
+                    <div class="itemflexcenter">
+                      <div class="itemamountlabel">数量</div>
+                      @if (editable()) {
+                        <div
+                          [ngClass]="{
+                            canamouticon: cartitem.amount > 1,
+                            cannotamouticon: !(cartitem.amount > 1),
+                          }"
+                          (click)="changeamount(cartitem, -1)"
+                        >
+                          ー
+                        </div>
+                      }
+                      <div class="itemamount">{{ cartitem.amount }}</div>
+                      @if (editable()) {
+                        <div class="canamouticon" (click)="changeamount(cartitem, 1)">＋</div>
+                      }
+                    </div>
+                    <div class="itemflexbottom">
+                      <div class="itemtotalmoneylabeltable">
+                        <div class="itemtotalmoneylabelcell">価格</div>
+                      </div>
+                      <div class="itemtotalmoney">
+                        <div class="itemtax">
+                          （内税：{{ convertcurrency(cartitem.total_tax_money) }}）
+                        </div>
+                        <div class="itemprice">{{ convertcurrency(cartitem.total_money) }}</div>
+                      </div>
+                      <div class="itemtotalmoneyunittable">
+                        <div class="itemtotalmoneyunitcell">円（税込）</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+        <div class="deliverbox">
+          @if (postageloading()) {
+            <div class="postageloader"></div>
+          }
+          @if (!postageloading()) {
+            <div class="delivercautionbox">
+              @if (incpostage() && incpostage() != measurement().includepostage) {
+                <div class="delivercaution">※購入予定ですが冬物送料が含まれていません</div>
+              }
+              @if (!incpostage() && incpostage() != measurement().includepostage) {
+                <div class="delivercaution">※冬物送料が含まれています</div>
+              }
+            </div>
+          }
+          @if (editable()) {
+            <div class="toggle">
+              <input
+                type="checkbox"
+                id="includepostagetoggle"
+                (change)="recalcorder()"
+                [(ngModel)]="measurement().includepostage"
+              />
+              <label for="includepostagetoggle"> </label>
+            </div>
+          }
+          <div
+            class="delivercaption"
+            [style.background-color]="postages[1].bg_color"
+            [style.color]="postages[1].font_color"
+          >
+            {{ postages[1].caption }}
+          </div>
+          <div class="deliverymoney">
+            {{ convertcurrency(cartmoney().postage_money) }}<span>円</span>
+          </div>
+        </div>
+        <div class="deliverbox2">
+          @if (postageloading()) {
+            <div class="postageloader"></div>
+          }
+          @if (!postageloading()) {
+            <div class="delivercautionbox">
+              @if (incpostage2() && incpostage2() != measurement().includepostage2) {
+                <div class="delivercaution">※購入予定ですが夏物送料が含まれていません</div>
+              }
+              @if (!incpostage2() && incpostage2() != measurement().includepostage2) {
+                <div class="delivercaution">※夏物送料が含まれています</div>
+              }
+            </div>
+          }
+          @if (editable()) {
+            <div class="toggle">
+              <input
+                type="checkbox"
+                id="includepostage2toggle"
+                (change)="recalcorder()"
+                [(ngModel)]="measurement().includepostage2"
+              />
+              <label for="includepostage2toggle"> </label>
+            </div>
+          }
+          <div
+            class="delivercaption"
+            [style.background-color]="postages[2].bg_color"
+            [style.color]="postages[2].font_color"
+          >
+            {{ postages[2].caption }}
+          </div>
+          <div class="deliverymoney">
+            {{ convertcurrency(cartmoney().postage2_money) }}<span>円</span>
+          </div>
+        </div>
+        <div class="cartmoneybox">
+          <div class="totalmoneylabel">合計金額</div>
+          <div class="totalmoneyamount">
+            <div class="totaltaxmoney">
+              （内消費税 {{ convertcurrency(cartmoney().total_tax_money) }}<span>円</span>）
+            </div>
+            <div class="totalmoney">
+              {{ convertcurrency(cartmoney().total_money) }}<span>円</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}

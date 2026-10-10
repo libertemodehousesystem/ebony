@@ -1,0 +1,139 @@
+<div class="searchbox">
+  <div class="namefield">
+    <label>氏名検索</label>
+    <span class="customernameinput">
+      <input type="text" [(ngModel)]="searchcustomername" (change)="changename()" />
+      @if (suggestedcustomers().length > 0) {
+        <div class="suggestbox">
+          @for (suggested of suggestedcustomers(); track suggested) {
+            <div class="customeritem" (click)="selectextracustomer($event, suggested)">
+              {{ suggested.customer_family_name }} {{ suggested.customer_given_name }}
+            </div>
+          }
+        </div>
+      }
+    </span>
+  </div>
+  <div class="cashapplyfield">
+    <div
+      [ngClass]="{
+        paymentmethodtoggle: true,
+        othertoggle: receiptcustomer().payment_method == 'OTHER',
+        cashtoggle: receiptcustomer().payment_method == 'CASH',
+      }"
+    >
+      <span>
+        @switch (receiptcustomer().payment_method) {
+          @case ('OTHER') {
+            <span>振込</span>
+          }
+          @case ('CASH') {
+            <span>現金</span>
+          }
+        }
+      </span>
+    </div>
+    @if (receiptcustomer().cashapplies) {
+      <div class="applies">
+        @for (cashapply of receiptcustomer().cashapplies; track cashapply) {
+          <div>
+            @if (cashapply.wallettxn) {
+              <span>振込日：{{ cashapply.wallettxn.date_ymd }}</span>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
+<div class="actionbox">
+  <div class="actionfield">
+    <button class="printbutton" (click)="printreceipt()" [disabled]="!canissue()">領収書発行</button>
+    @if (receiptcustomer().customer_uid && !receiptcustomer().cashapplies) {
+      <span class="cationcaption">消込情報がありません。出力時は気を付けてください。</span>
+    }
+  </div>
+</div>
+@if (canissue()) {
+  <div class="printbox">
+    <div class="receiptcaption">領収書</div>
+    <div class="separater"></div>
+    <div class="upperbox">
+      <div class="upperleft">
+        <div class="itemfield">
+          <label>お買い上げ日</label>
+          <div class="textfield">{{ receiptcustomer().earned_at_ymd }}</div>
+        </div>
+        <div class="itemfield">
+          <label>発行日</label>
+          <div class="textfield">{{ receiptcustomer().issue_at }}</div>
+        </div>
+        <div class="itemfield">
+          <label>注文ID</label>
+          <div class="textfield">{{ receiptcustomer().square_order_id }}</div>
+        </div>
+        @if (receiptcustomer().issue_no > 1) {
+          <div class="itemfield">
+            <label>発行済み</label>
+            <span>{{ receiptcustomer().issue_no_v }}</span>
+          </div>
+        }
+      </div>
+      <div class="upperright">
+        <!-- <div class="shitatelogo"></div> -->
+        <img class="shitatelogo" src="/assets/sitatelogo.png" />
+        <div class="shitateinfo">
+          <div class="shitatecaption">株式会社 大久保洋服店</div>
+          <div class="shitatecaption">神奈川県川崎市中原区小杉町</div>
+          <div class="shitatecaption">3-4-3 メゾンプレール 1F</div>
+          <div class="shitatecaption">TEL 044-722-2901</div>
+          <div class="shitatecaption">登録番号：T7020001069051</div>
+        </div>
+      </div>
+    </div>
+    <div class="centerbox">
+      <div class="namefield">
+        <div class="customername">{{ receiptcustomer().customer_name }}</div>
+        <label class="customersuffix">様</label>
+      </div>
+    </div>
+    <div class="bottombox">
+      <div class="stampimagebox">
+        <img class="stampimage" src="/assets/stamp.png" />
+      </div>
+      <div class="totalmoneybox">
+        <label>金額</label>
+        <div class="totalmoney">
+          {{ receiptcustomer().total_money.toLocaleString() }}<span class="currency">円</span>
+        </div>
+        <div>上記正に領収いたしました。</div>
+        <div>但<input class="receiptproviso" [(ngModel)]="receiptcustomer().proviso" /></div>
+      </div>
+      <div class="taxmoneybox">
+        <div>内</div>
+        <div>
+          <div class="itemfield">
+            <label>消費税 8%</label>
+            <div class="amountmoney">
+              <span>8% 対象金額</span><span class="amount">0</span><span class="currency">円</span>
+            </div>
+            <div class="taxmoney">0<span class="currency">円</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="itemfield">
+            <label>消費税 10%</label>
+            <div class="amountmoney">
+              <span>10% 対象金額</span
+              ><span class="amount">{{ receiptcustomer().amount_money.toLocaleString() }}</span
+              ><span class="currency">円</span>
+            </div>
+            <div class="taxmoney">
+              {{ receiptcustomer().tax_money.toLocaleString() }}<span class="currency">円</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

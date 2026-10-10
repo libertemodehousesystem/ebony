@@ -1,0 +1,39 @@
+<div class="qrcodedlgback">
+  <div class="dlgwindow">
+    <div class="dlgtitle">{{ title() }}</div>
+    <div class="dlgcontent">
+      <div class="cameraselector">
+        @if (currentdevice()) {
+          <div class="currentdevice">{{ currentdevice().label }}</div>
+        }
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          class="downarrow"
+          (click)="deviceselector()"
+        >
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <path d="M7 10l5 5 5-5H7z" />
+        </svg>
+        <div class="devicebox" [style.visibility]="deviceselectorvisibility()">
+          @for (device of devices(); track device) {
+            <div class="deviceitem" (click)="selectdevice(device)">{{ device.label }}</div>
+          }
+        </div>
+      </div>
+      <!-- <div *ngIf="devices">
+      <select [(value)]="selectdeviceId">
+        <option ngFor="let device of devices" [value]="device.deviceId">{{ device.label }}</option>
+      </select>
+    </div> -->
+      <div>
+        <zxing-scanner
+          #QRscanner
+          [device]="currentdevice()"
+          (deviceChange)="devicechange($event)"
+        ></zxing-scanner>
+      </div>
+    </div>
+    <button class="closebutton" (click)="closedialog()">閉じる</button>
+  </div>
+</div>

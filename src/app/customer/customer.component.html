@@ -1,0 +1,54 @@
+<div class="customerarea">
+  <div class="customerpane">
+    <!-- <div class="searchname">１．まずは生徒様のお名前で検索をしましょう。</div> -->
+    <!-- <button class="searchnamebutton" (click)="opensearch()">検索</button> -->
+    <!-- <div class="searchname">２．検索後に表示されたご自身の情報が正しいかご確認ください。</div>
+    <div class="searchname">３．携帯電話で受けれるメールアドレスと保護者名をご入力ください。</div> -->
+
+    <div class="tray">
+      <app-customerinfo
+        [(customerinfo)]="customerinfo"
+        [canedit]="true"
+        [fromSearchDlg]="fromSearchDlg()"
+        [cansearch]="cansearch"
+        [cansensor]="true"
+        [limited]="false"
+      ></app-customerinfo>
+    </div>
+    <!-- <div class="searchname">４．以上１～３が完了しましたら以下の登録ボタンを押してください。</div> -->
+    <button class="registbutton" (click)="registcustomer()">登録</button>
+    @if (qrcodevalue()) {
+      <div class="tray">
+        <qrcode
+          [qrdata]="qrcodevalue()"
+          [allowEmptyString]="true"
+          [width]="qrsize"
+          [errorCorrectionLevel]="'M'"
+        ></qrcode>
+      </div>
+    }
+    <button class="printbutton" (click)="qrprint()">QR プリント</button>
+    <button class="resetbutton" (click)="resetcustomer()">リセット</button>
+  </div>
+  <div [style.visibility]="searchvisibility()">
+    <app-searchcustomerdlg #SearcgDlg [customer]="customerinfo()"></app-searchcustomerdlg>
+  </div>
+</div>
+
+<div class="printarea">
+  <div class="printbox">
+    <div class="printlayout">
+      <div class="subtitle">（株）大久保洋服店　制服販売会用　QRコード</div>
+      <div class="printcustomer">
+        <label class="namelabel">お名前</label>
+        <div class="customername">
+          {{ customerinfo().customer_family_name + '　' + customerinfo().customer_given_name }}
+        </div>
+        <span>様</span>
+      </div>
+    </div>
+    <div class="printqr">
+      <qrcode [qrdata]="qrcodevalue()" [width]="200" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
+  </div>
+</div>

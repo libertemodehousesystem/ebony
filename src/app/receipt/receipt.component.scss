@@ -1,0 +1,206 @@
+.searchbox{
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  .namefield{
+    // display:inline-block;
+    label{
+      display: inline-block;
+      padding-right: 10px;
+    }
+  }
+  .cashapplyfield{
+    margin-left: 10px;
+    // display: inline-block;
+    .paymentmethodtoggle{
+      display: inline-block;
+    }
+    .othertoggle{
+      background-color: #cdde16;
+      padding: 2.5px 10px;
+      border-radius: 5px;
+    }
+    .cashtoggle{
+      background-color: #6aaae7;
+      padding: 2.5px 10px;
+      border-radius: 5px;
+    }
+    .applies{
+      display: inline-block;
+      margin-left: 10px;
+      .cationcaption{
+        color: #ff0000;
+        font-weight: bold;
+      }
+    }
+  }
+}
+.actionbox{
+  margin: 10px 20px;
+  .cationcaption{
+    margin-left: 10px;
+    font-size: 0.8rem;
+    color: #ff0000;
+  }
+}
+.customernameinput{
+  position: relative;
+  input[type=text]{
+    padding: 5px;
+  }
+  .suggestbox{
+    position: absolute;
+    top: 25px;
+    left: 0px;
+    background-color: #ffffff;
+    border: solid 1px #000000;
+  }
+  .customeritem{
+    padding: 5px;
+    cursor: pointer;
+    &:hover{
+      background-color: #a1f3dd;
+    }
+  }
+}
+.printbox{
+  // width: calc(100vw - 60px);
+  margin: 0px auto;
+  width: 210mm;
+  height: calc(100vh - 200px);
+  // border: solid 3px #555555;
+  padding: 30px;
+  // overflow-y: scroll;
+  .receiptcaption{
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 10px 0px;
+  }
+  .separater{
+    margin: 0px 10px;
+    height: 3px;
+    // background-color: #000000;
+    border-bottom: solid 3px #000000;
+  }
+  .shitatelogo{
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 75px;
+    height: 90px;
+    // background-image: url("/assets/sitatelogo.png");
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    // vertical-align: top;
+  }
+  .shitateinfo{
+    margin-top: 10px;
+    margin-right: 20px;
+    display:inline-block;
+    .shitatecaption{
+      font-size: 0.8rem;
+    }
+  }
+  .upperbox{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    .upperright{
+      margin-left: auto;
+    }
+  }
+  .itemfield{
+    margin: 5px 0px 0px 20px;
+    label{
+      display: inline-block;
+      width: 120px;
+    }
+    .textfield{
+      display: inline-block;
+    }
+  }
+  .centerbox{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin-left: 70px;
+    .namefield{
+      padding: 5px 10px 5px 20px;
+      border-bottom: solid 2px #000000;
+    }
+    .customername{
+      font-size: 1.4rem;
+      display: inline-block;
+    }
+    .customersuffix{
+      display: inline-block;
+      margin-left: 10px;
+      font-size: 0.8rem;
+      vertical-align: bottom;
+    }
+  }
+  .bottombox{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    .totalmoneybox{
+      margin-right: 20px;
+    }
+    .totalmoneybox{
+      margin-left: auto;
+      .totalmoney{
+        width: 200px;
+        font-size: 1.4rem;
+        text-align: right;
+      }
+      .receiptproviso{
+        padding: 5px;
+        margin-left: 10px;
+        border: none;
+        background-color: #ceebf7;
+      }
+    }
+    .taxmoneybox{
+      margin-right: 20px;
+      .amountmoney{
+        width: 200px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        .amount{
+          margin-left: auto;
+        }
+      }
+      .taxmoney{
+        width: 200px;
+        text-align: right;
+      }
+    }
+    .currency{
+      font-size: 1.0rem;
+    }
+    .stampimagebox{
+      margin-left: 20px;
+      .stampimage{
+        margin-top: 40px;
+        width: 21mm;
+        height: 25mm
+      }
+    }
+  }
+}
+
+@media print {
+  @page { size: A4 }
+  .searchbox{
+    display: none;
+  }
+  .actionbox{
+    display: none;
+  }
+}

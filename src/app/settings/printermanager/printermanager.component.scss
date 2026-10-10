@@ -1,0 +1,96 @@
+.printersettingarea{
+  padding: 10px;
+  .fieldbox{
+    margin-bottom: 10px;
+  }
+  label{
+    display: inline-block;
+    font-size: 0.8rem;
+    width: 150px;
+  }
+  canvas{
+    display:none;
+  }
+  .banksetting{
+    .bankpane{
+      display: flex;
+      flex-direction: row;
+      justify-content: left;
+      align-items: center;
+      padding: 0px 15px;
+      margin: 5px;
+      background-color: #d3d3d3;
+      .ordinalbox{
+        font-size: 0.8rem;
+        text-align: center;
+        svg{
+          width: 25px;
+          height: 25px;
+        }
+        .disableicon{
+          visibility: hidden;
+        }
+        .paneicon{
+          visibility: visible;
+        }
+      }
+      .ginko{
+        label{
+          display: block;
+          font-size: 0.6rem;
+          width: auto;
+        }
+        input{
+          width: 200px;
+        }
+      }
+      .shiten{
+        label{
+          display: block;
+          font-size: 0.6rem;
+          width: auto;
+        }
+        input{
+          width: 120px;
+        }
+      }
+      .kozakind{
+        padding: 5px 5px;
+        input {
+          display: none;
+        }
+        input[type=radio] + label {
+          display: inline-block;
+          font-size: 0.8rem;
+          // width: 70px;
+          width: auto;
+          border: solid 1px #000000;
+          text-align: center;
+          padding: 5px 10px;
+          background-color: #ffffff;
+        }
+        input[type=radio]:checked + label {
+          border: solid 1px #000000;
+          background-color: #70b3ce;
+        }
+      }
+      .koza{
+        label{
+          display: block;
+          font-size: 0.6rem;
+          width: auto;
+        }
+        input{
+          width: 100px;
+        }
+      }
+      .action{
+        padding: 10px;
+      }
+    }
+    .newpane{
+      background-color: #ffeec8;
+      padding: 15px;
+    }
+  }
+}

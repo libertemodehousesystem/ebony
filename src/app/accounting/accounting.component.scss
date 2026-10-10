@@ -1,0 +1,400 @@
+@use '../commondesign' as *;
+
+.accountingarea{
+  height: calc(100vh - 50px);
+  overflow-y: auto;
+  .accountingplate{
+    margin: 0px auto;
+    padding-bottom: 50px;
+    width: calc(100vw - 20px);
+    max-width: 600px;
+    .oldusebox{
+      margin: 15px 10px 15px 10px;
+      input + label{
+        font-size: 0.8rem;
+        padding: 5px 5px;
+        border: solid 3px #ffffff;
+      }
+      input:checked + label{
+        color: #ffffff;
+        border: solid 3px #0000ff;
+        background-color: #0000ff;
+      }
+    }
+    .receitbox{
+      margin: 10px 10px 5px 10px;
+      input + label{
+        font-size: 0.8rem;
+        padding: 5px 5px;
+        border: solid 3px #ffffff;
+      }
+      input:checked + label{
+        color: #ffffff;
+        border: solid 3px #0000ff;
+        background-color: #0000ff;
+      }
+      .receiptdetailbox{
+        display: inline-block;
+        margin: 0px 0px 0px 10px;
+        .receiptfield{
+          display: inline-block;
+          label{
+            display: block;
+            font-size: 0.6rem;
+          }
+          input[type=text]{
+            outline: none;
+            border: none;
+            border-bottom: solid 1px #000000;
+            padding: 5px;
+            margin-right: 5px;
+            &:focus{
+              background-color: #bebeff;
+            }
+          }
+          .normallen{
+            width: 120px;
+          }
+          .longlen{
+            width: 200px;
+          }
+        }
+      }
+    }
+    .routingbox{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      margin-left: 20px;
+      .routingbutton{
+        user-select: none;
+        height: 60px;
+        width: 60px;
+        display: table;
+        margin: 10px 5px 20px 5px;
+        padding: 5px;
+        font-size: 0.8rem;
+        border:solid 1px #000000;
+        cursor: pointer;
+        &:hover{
+          background-color: #f89bca;
+        }
+        &:active{
+          background-color: #f89bca;
+        }
+        .textcell{
+          display: table-cell;
+          vertical-align: middle;
+          text-align: center;
+        }
+      }
+    }
+    .checkouttable{
+      border-spacing: 0;
+      .namecol{
+        width: 240px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        span{
+          display: inline-block;
+          margin-left: 5px;
+        }
+      }
+      .itemodd{
+        background-color: #fff8ec;
+      }
+      .itemeven{
+        background-color: #ffffff;
+      }
+      .amount{
+        text-align: center;
+      }
+      .currency{
+        text-align: right;
+      }
+      .smallfont{
+        font-size: 0.8rem;
+        white-space: nowrap;
+      }
+      .delivercaution{
+        font-size: 0.8rem;
+        color: #ff0000;
+      }
+    }
+    .squarenotice{
+      margin: 5px 0px;
+      padding: 5px 10px;
+      background-color: #ff0000;
+      color: #ffffff;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      .refundtoggle{
+        display: inline-block;
+        width: 45px;
+        height: 20px;
+        margin: 0px 5px 0px auto;
+        input {
+          display: none;
+        }
+        input + label {
+          width: 45px;
+          height: 20px;
+          background: #ccc;
+          position: relative;
+          display: inline-block;
+          border-radius: 20px;
+          transition: 0.4s;
+          box-sizing: border-box;
+          &::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+            left: 0;
+            top: 0;
+            z-index: 2;
+            background: #d1d0d0;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            transition: 0.4s;
+            cursor: pointer;
+          }
+        }
+        input:checked + label {
+          background: #22b5da;
+          &::after{
+            left: 25px;
+          }
+        }
+      }
+    }
+    .paymethod{
+      margin-top: 15px;
+      input{
+        display: none;
+      }
+      input[type=radio] + label{
+        font-size: 0.8rem;
+        display: inline-block;
+        padding: 5px 10px;
+        border: solid 1px #000000;
+      }
+      input[type=radio]:checked + label{
+        border: solid 1px #000000;
+        background-color: #3fca6e;
+      }
+    }
+    .requestbox{
+      padding: 10px;
+      .meisaibox{
+        .furipaperbutton{
+          padding: 10px 15px;
+          background-color: #f2e1bf;
+          outline: none;
+          border: none;
+          &:active{
+            background-color: #f6b533;
+          }
+        }
+      }
+      .checknumbers{
+        display: grid;
+        grid-template-columns: 50% 50%;
+        .furipaperbutton{
+          padding: 5px 10px;
+          background-color: #cff3ea;
+          &:active{
+            background-color: #3fca6e;
+          }
+        }
+        .checknumbetable{
+          grid-column-start: 1;
+          grid-column-end: 2;
+          margin: 0px 20px;
+          width: 213px;
+          .receivereset{
+            font-size: 1.2rem;
+            line-height: 70px;
+            height: 70px;
+            background-color: #f89bca;
+            text-align: center;
+            user-select: none;
+          }
+          .backspace{
+            font-size: 0.8rem;
+            line-height: 70px;
+            height: 70px;
+            background-color: #ec3591;
+            text-align: center;
+            user-select: none;
+          }
+          .numbutton{
+            font-size: 1.2rem;
+            line-height: 70px;
+            width: 70px;
+            height: 70px;
+            background-color: #cff3ea;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            &:active{
+              background-color: #6bb6a3;
+            }
+          }
+          .dnumbutton{
+            font-size: 1.2rem;
+            line-height: 70px;
+            height: 70px;
+            background-color: #cff3ea;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            &:active{
+              background-color: #6bb6a3;
+            }
+          }
+          .receiveconfirm{
+            font-size: 1.2rem;
+            line-height: 70px;
+            height: 70px;
+            background-color: #f8c89b;
+            text-align: center;
+          }
+        }
+      }
+      .checkresults{
+        grid-column-start: 2;
+        grid-column-end: 3;
+        margin: 0px 10px;
+        label{
+          display: inline-block;
+          margin: 10px 0px 0px 0px;
+        }
+        .inputmoney{
+          font-size: 1.2rem;
+          margin-top: 10px;
+          text-align: right;
+          border-bottom: solid 1px #3fca6e;
+          width: 200px;
+        }
+        .receivebox{
+          &:focus{
+            background-color: #22b5da;
+          }
+        }
+      }
+      .receiptbox{
+        padding: 10px;
+        .issuebutton{
+          padding: 10px 15px;
+          background-color: #f2e1bf;
+          outline: none;
+          border: none;
+          &:active{
+            background-color: #f6b533;
+          }
+        }
+      }
+    }
+    .toggle{
+      display: inline-block;
+      width: 45px;
+      margin: 0px 5px 0px auto;
+      input {
+        display: none;
+      }
+      input + label {
+        width: 45px;
+        height: 20px;
+        background: #ccc;
+        position: relative;
+        display: inline-block;
+        border-radius: 20px;
+        transition: 0.4s;
+        box-sizing: border-box;
+        &::after {
+          content: '';
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          border-radius: 100%;
+          left: 0;
+          top: 0;
+          z-index: 2;
+          background: #d1d0d0;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+          transition: 0.4s;
+          cursor: pointer;
+        }
+      }
+      input:checked + label {
+        background: #22b5da;
+        &::after{
+          left: 25px;
+        }
+      }
+    }
+    .cvspaper{
+      display: none;
+      // border: solid 1px #000000;
+    }
+    .logoimage{
+      display: none;
+    }
+    .qrimage{
+      display: none;
+    }
+    .stampimage{
+      display: none;
+    }
+    .highlight{
+      font-weight: bold;
+    }
+  }
+}
+
+.splashback{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.3);
+  z-index: 10;
+  .splashwindow{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+}
+
+.dialogback{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.3);
+  .dialogwindow{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    .dlgmsg{
+      margin: 10px 0px;
+    }
+    button{
+      width: 100%;
+    }
+  }
+}

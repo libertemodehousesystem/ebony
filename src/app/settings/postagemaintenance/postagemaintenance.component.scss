@@ -1,0 +1,14 @@
+.postagearea{
+  padding: 10px;
+  .fieldbox{
+    margin-bottom: 10px;
+  }
+  label{
+    display: inline-block;
+    font-size: 0.8rem;
+    width: 100px;
+  }
+  select{
+    padding: 2px 5px;
+  }
+}

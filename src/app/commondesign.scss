@@ -1,0 +1,46 @@
+@use 'sass:color';
+
+$liberte-default: #0f428f;
+$liberte-focus: #8d82ee;
+$liberte-active: #a86ed8;
+$liberte-nonactive: #f0ebf7;
+$liberte-nonactive-rgb: rgba(240, 235, 247, 0.6);
+
+$liberte-rowselect: #b6d8f8;
+
+$liberte-backscreen: rgba(57, 75, 71, 0.5);
+$liberte-backscreen-hidden: rgba(57, 75, 71, 0);
+
+$liberte-toggleon: #2a2cbe;
+$liberte-toggleoff: #707070;
+
+$liberte-accentbutton: #482c68;
+
+$liberte-default-hover: color.adjust($liberte-default, $lightness: -6%);
+$liberte-nonactive-hover: color.adjust($liberte-nonactive, $lightness: -5%);
+
+
+// 角丸のフラットなボタン($outline: true で枠線のみ)
+@mixin pill-button($outline: false) {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 150ms ease, box-shadow 150ms ease, transform 100ms ease;
+  @if $outline {
+    background-color: transparent;
+    color: $liberte-default;
+    border: solid 1px $liberte-default;
+    &:hover{ background-color: $liberte-nonactive; }
+  } @else {
+    background-color: $liberte-default;
+    color: #ffffff;
+    border: solid 1px $liberte-default;
+    box-shadow: 0 1px 3px rgba(15, 66, 143, 0.35);
+    &:hover{ background-color: $liberte-default-hover; box-shadow: 0 3px 8px rgba(15, 66, 143, 0.35); }
+  }
+  &:active{ transform: translateY(1px); }
+  &:focus-visible{ outline: 3px solid rgba(15, 66, 143, 0.35); outline-offset: 2px; }
+  &:disabled{ opacity: 0.5; cursor: not-allowed; box-shadow: none; transform: none; }
+}

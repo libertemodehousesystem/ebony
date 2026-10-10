@@ -1,0 +1,51 @@
+<div class="connectarea">
+  <div class="accessbox">
+    <div class="subtitle">連携基本情報</div>
+    <div class="itemfield">
+      <label>ベースURL</label>
+      <input type="text" [(ngModel)]="access().basepath" />
+    </div>
+    <div class="itemfield">
+      <label>client_id</label>
+      <input type="text" [(ngModel)]="access().client_id" />
+    </div>
+    <div class="itemfield">
+      <label>client_secret</label>
+      <input type="text" [(ngModel)]="access().client_secret" />
+    </div>
+    <button>登録</button>
+  </div>
+  <button (click)="routingpage('squarestart')" [disabled]="token().access_token">Square連携</button>
+  @if (token().access_token) {
+    <div class="tokensbox">
+      <div class="subtitle">連携token情報</div>
+      <div class="itemfield">
+        <label>access_token</label>
+        <input type="text" [(ngModel)]="token().access_token" />
+      </div>
+      <div class="itemfield">
+        <label>expires_at</label>
+        <input type="text" [(ngModel)]="token().expires_at" />
+      </div>
+      <div class="itemfield">
+        <label>refresh_token</label>
+        <input type="text" [(ngModel)]="token().refresh_token" />
+      </div>
+      <button (click)="tokenrefresh()">リフレッシュ</button>
+    </div>
+  }
+  <div class="subtitle">Square店舗</div>
+  <button (click)="dolinkagelocation()">店舗連携</button>
+  @for (location of locations(); track location) {
+    <div class="locationtoggle">
+      <input
+        type="radio"
+        name="location"
+        id="location{{ location.location_id }}"
+        (change)="locationchange(location)"
+        [checked]="location.location_id == currentlocation()?.location_id"
+      />
+      <label for="location{{ location.location_id }}">{{ location.location_name }}</label>
+    </div>
+  }
+</div>

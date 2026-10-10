@@ -1,0 +1,81 @@
+@if (showProgressDialog()) {
+  <div class="progress-overlay">
+    <div class="progress-dialog">
+      <div class="progress-title">
+        {{ savingBackup() ? 'データを保存しています...' : '一括更新中...' }}
+      </div>
+      <div class="progress-count">{{ progressCurrent() }} / {{ progressTotal() }} 件</div>
+      <div class="progress-bar-container">
+        <div
+          class="progress-bar"
+          [style.width.%]="progressTotal() > 0 ? (progressCurrent() / progressTotal()) * 100 : 0"
+        ></div>
+      </div>
+      <div class="progress-percent">
+        {{ progressTotal() > 0 ? ((progressCurrent() / progressTotal()) * 100 | number: '1.0-0') : 0 }}%
+      </div>
+    </div>
+  </div>
+}
+
+<div class="addmovearea">
+  <div class="actionplate">
+    <button (click)="load()" [disabled]="loading()">
+      {{ loading() ? '読み込み中...' : '顧客情報取得' }}
+    </button>
+    @if (error()) {
+      <span class="errortext">{{ error() }}</span>
+    }
+  </div>
+
+  @if (customers().length > 0) {
+    <div class="customersbox">
+      <div class="actionplate">
+        <button (click)="bulkupdate()" [disabled]="updatingId() !== null">
+          {{ updatingId() !== null ? '更新中...' : '一括更新' }}
+        </button>
+        <div class="recordcount">{{ customers().length }}件</div>
+      </div>
+      <div class="customertable">
+        <div class="customerrow headerrow">
+          <div class="customercell"></div>
+          <div class="customercell">ID</div>
+          <div class="customercell">姓</div>
+          <div class="customercell">名</div>
+          <div class="customercell">メールアドレス</div>
+          <div class="customercell">電話番号</div>
+          <div class="customercell">郵便番号</div>
+          <div class="customercell">住所1</div>
+          <div class="customercell">住所2</div>
+          <div class="customercell">建物名</div>
+          <div class="customercell">国</div>
+          <div class="customercell">備考</div>
+          <div class="customercell">参照ID</div>
+          <div class="customercell">作成日時</div>
+        </div>
+        @for (customer of customers(); track customer) {
+          <div class="customerrow">
+            <div class="customercell">
+              <button (click)="update(customer)" [disabled]="updatingId() === customer.id">
+                {{ updatingId() === customer.id ? '更新中...' : '更新' }}
+              </button>
+            </div>
+            <div class="customercell">{{ customer.id }}</div>
+            <div class="customercell">{{ customer.family_name }}</div>
+            <div class="customercell">{{ customer.given_name }}</div>
+            <div class="customercell">{{ customer.email_address }}</div>
+            <div class="customercell">{{ customer.phone_number }}</div>
+            <div class="customercell">{{ customer.address?.postal_code }}</div>
+            <div class="customercell">{{ customer.address?.address_line_1 }}</div>
+            <div class="customercell">{{ customer.address?.address_line_2 }}</div>
+            <div class="customercell">{{ customer.address?.address_line_3 }}</div>
+            <div class="customercell">{{ customer.address?.country }}</div>
+            <div class="customercell">{{ customer.note }}</div>
+            <div class="customercell">{{ customer.reference_id }}</div>
+            <div class="customercell">{{ customer.created_at | date: 'yyyy/MM/dd HH:mm' }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,38 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": false,
+    "noImplicitOverride": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "useDefineForClassFields": false,
+    "paths": {
+      "@lib/shared": ["./src/app/lib/shared/index.ts"],
+      "@lib/shared/*": ["./src/app/lib/shared/*"],
+      "@lib/cartactions": ["./src/app/lib/cartactions/index.ts"],
+      "@lib/liberte-qr-reader-component": ["./src/app/lib/qr-reader/index.ts"],
+      "@lib/liberte-qrcode": ["./src/app/lib/qrcode/index.ts"]
+    },
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve"
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": false,
+    "strictInputAccessModifiers": false,
+    "strictTemplates": false
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
+}

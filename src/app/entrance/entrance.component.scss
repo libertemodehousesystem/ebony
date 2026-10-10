@@ -1,0 +1,75 @@
+@use '../commondesign' as *;
+
+$tablet: 600px;
+
+// @media screen and(max-width: 600px) {
+@media (max-width: ($tablet)) {
+  .entrancearea{
+    .menupanes{
+      margin: 0px auto;
+      padding-top: 30px;
+      width: 100vw;
+      .menuplates{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        .squarebutton{
+          // flex: 0 0 auto;
+          width: 150px;
+          height: 150px;
+          display: table;
+          border: solid 1px #000000;
+          margin: 5px;
+          user-select: none;
+          cursor: pointer;
+          &:active{
+            background-color: $liberte-default;
+            color: #ffffff;
+          }
+          .textbox{
+            display:table-cell;
+            vertical-align: middle;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+// @media screen and(min-width: 600px) {
+@media (min-width: ($tablet)) {
+  .entrancearea{
+    .menupanes{
+      margin: 0px auto;
+      padding-top: 30px;
+      width: 500px;
+      .menuplates{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        .squarebutton{
+          flex: 0 0 auto;
+          width: 150px;
+          height: 150px;
+          display: table;
+          border: solid 1px #000000;
+          margin: 5px;
+          user-select: none;
+          cursor: pointer;
+          &:hover{
+            background-color: $liberte-default;
+            color: #ffffff;
+          }
+          .textbox{
+            display:table-cell;
+            vertical-align: middle;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

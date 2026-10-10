@@ -1,0 +1,104 @@
+<div class="deliverlistarea">
+  <div class="header">
+    @for (postage of postages | slice: 1 : 3; track postage; let i = $index) {
+      <div class="postagetoggle">
+        <input
+          type="checkbox"
+          id="postage{{ postage.postage_id }}"
+          [(ngModel)]="postagechecks[i]"
+          (change)="changefilter()"
+        />
+        <label for="postage{{ postage.postage_id }}">{{ postage.caption }}</label>
+      </div>
+    }
+    <div class="alltoggle">
+      <input type="checkbox" id="listall" [(ngModel)]="listall" (change)="nonfilter()" />
+      <label for="listall">すべて表示</label>
+    </div>
+    <div class="shippingdate">
+      <label for="shippingdate">出荷予定日:</label>
+      <input type="date" id="shippingdate" [(ngModel)]="shippingDate" />
+    </div>
+    <div class="actionbox">
+      <button class="exportbutton" (click)="listexport()">エクスポート</button>
+      <button class="exportbutton" (click)="b2export()">送り先リスト出力</button>
+    </div>
+  </div>
+  <div class="body">
+    <table class="deliverytable">
+      <thead>
+        <tr>
+          <th>お届け先コードキー</th>
+          <th>番号</th>
+          <th>お客様名</th>
+          <th>お客様名（カナ）</th>
+          <th>郵便番号</th>
+          <th>都道府県</th>
+          <th>市区町村</th>
+          <th>番地以降</th>
+          <th>建物等</th>
+          <th>電話番号</th>
+          <th>冬物配送</th>
+          <th>夏物配送</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (cartmeasurement of filteredcartmeasurements(); track cartmeasurement; let i = $index) {
+          <tr>
+            <!-- <tr *ngFor="let cartmeasurement of cartmeasurements"> -->
+            <td>{{ cartmeasurement.deliverycode }}</td>
+            <td>{{ i + 1 }}</td>
+            <td>{{ cartmeasurement.customer_name }}</td>
+            <td>{{ cartmeasurement.customer_kn_name }}</td>
+            <td>{{ cartmeasurement.zip_code }}</td>
+            <td>{{ cartmeasurement.addrstate }}</td>
+            <td
+              [ngClass]="{
+                'addr-warning':
+                  (cartmeasurement.addr1?.length || 0) + (cartmeasurement.addr2?.length || 0) >= 28,
+              }"
+            >
+              {{ cartmeasurement.addr1 }}
+            </td>
+            <td
+              [ngClass]="{
+                'addr-warning':
+                  (cartmeasurement.addr1?.length || 0) + (cartmeasurement.addr2?.length || 0) >= 28,
+              }"
+            >
+              {{ cartmeasurement.addr2 }}
+            </td>
+            <td [ngClass]="{ 'addr-warning': cartmeasurement.addr3?.length >= 16 }">
+              {{ cartmeasurement.addr3 }}
+            </td>
+            <td>{{ cartmeasurement.phone }}</td>
+            <td>
+              @if (cartmeasurement.includepostage) {
+                <div>有</div>
+              }
+              @if (cartmeasurement.includepostage === false) {
+                <div>無</div>
+              }
+              @if (cartmeasurement.includepostage === null) {
+                <div>有（要確認）</div>
+              }
+              <!-- <div>{{ cartmeasurement.includepostage }}</div> -->
+            </td>
+            <td>
+              @if (cartmeasurement.includepostage2) {
+                <div>有</div>
+              }
+              @if (cartmeasurement.includepostage2 === false) {
+                <div>無</div>
+              }
+              @if (cartmeasurement.includepostage2 === null) {
+                <div>有（要確認）</div>
+              }
+              <!-- <div>{{ cartmeasurement.includepostage2 }}</div> -->
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

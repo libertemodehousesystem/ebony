@@ -1,0 +1,38 @@
+<div class="actionbar">
+  <button (click)="exportfile()">エクスポート</button>
+  <button (click)="openfile($event)">インポート</button>
+  <input #FileInput type="file" class="fileinput" (change)="doimport($event.target.files)" />
+</div>
+<div class="contentarea">
+  <table class="customertable">
+    <thead>
+      <tr>
+        <th class="stickycell">氏名</th>
+        <th class="stickycell">ショップ</th>
+        <th class="stickycell">売上日付</th>
+        <th class="stickycell">決済手段</th>
+        <th class="stickycell">売上額</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (extracustomer of extracustomers(); track extracustomer.customer_uid) {
+        <tr [ngClass]="{'enablerow': extracustomer.payment_method, 'disablerow': !extracustomer.payment_method}">
+          <td>{{ extracustomer.customer_family_name }} {{ extracustomer.customer_given_name }}</td>
+          <td>{{ extracustomer.shop_name }}</td>
+          <td>{{ extracustomer.earned_at_ymd }}</td>
+          <td>
+            @switch (extracustomer.payment_method) {
+              @case ('CASH') {
+                <span class="cashtoggle">現金</span>
+              }
+              @case ('OTHER') {
+                <span class="banktoggle">振込</span>
+              }
+            }
+          </td>
+          <td align="right">{{ extracustomer.total_money.toLocaleString() }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

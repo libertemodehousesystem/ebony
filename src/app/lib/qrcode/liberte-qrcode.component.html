@@ -1,0 +1,270 @@
+<div class="lock-button-area">
+  <div class="lock-toggle">
+    <input
+      type="checkbox"
+      id="lock-toggle-input"
+      [(ngModel)]="locked"
+      (click)="confirmToggleLock()"
+    />
+    <label for="lock-toggle-input"></label>
+  </div>
+</div>
+<div class="lock-status-area">
+  @if (!locked()) {
+    <div>解除中</div>
+  }
+  @if (locked()) {
+    <div>ロック中</div>
+  }
+  @if (locked()) {
+    <div>{{ _shop()?.shop_name }} {{ _gender()?.caption }}</div>
+  }
+  @if (locked()) {
+    <div>{{ selectedcartplate()?.caption }}</div>
+  }
+</div>
+
+<div class="liberteqrcodearea" id="scrollable">
+  <!-- <div>QRCode テスター</div> -->
+  <!-- <div>
+  <label>文字列</label>
+  <input type="text" [(ngModel)]="qrcodevalue"/>
+</div> -->
+  <!-- <div>
+<label>サイズ</label>
+<input type="number" [(ngModel)]="qrsize"/>
+</div> -->
+
+  @if (!locked()) {
+    <div>
+      <div class="itemtitle">■販売会対象</div>
+      @for (shop of shops(); track shop) {
+        <div class="gendertoggle">
+          <input type="radio" name="shop" id="shop{{ shop.shop_id }}" (change)="changeshop(shop)" />
+          <label for="shop{{ shop.shop_id }}">{{ shop.shop_name }}</label>
+        </div>
+      }
+    </div>
+  }
+  @if (!locked()) {
+    <hr />
+  }
+  @if (!locked()) {
+    <div>
+      <div class="itemtitle">■性別</div>
+      @for (gender of genders; track gender) {
+        <div class="gendertoggle">
+          <input
+            type="radio"
+            name="gender"
+            id="gender{{ gender.gender_id }}"
+            (change)="changegender(gender)"
+          />
+          <label for="gender{{ gender.gender_id }}">{{ gender.caption }}</label>
+        </div>
+      }
+    </div>
+  }
+  @if (!locked() && filteredcartplatesitems().length > 0) {
+    <hr />
+  }
+  @if (!locked() && filteredcartplatesitems().length > 0) {
+    <div>
+      <div class="itemtitle">■商品カテゴリ</div>
+      @for (cartplate of filteredcartplatesitems(); track cartplate) {
+        <div class="itemtoggle">
+          <input
+            type="radio"
+            name="cartplate"
+            id="cartplate{{ cartplate.plate_id }}"
+            (change)="changecart(cartplate)"
+          />
+          <label for="cartplate{{ cartplate.plate_id }}">{{ cartplate.caption }}</label>
+        </div>
+      }
+    </div>
+  }
+  @if (!locked() && selectedcartplate()) {
+    <hr />
+  }
+  @if (selectedcartplate()) {
+    <div class="itemtitle">■商品を選択してください。</div>
+  }
+  @if (selectedcartplate() && !useExtension()) {
+    <div>
+      @for (item of selectedcartplate().items; track item) {
+        <div class="itemtoggle">
+          <input type="radio" name="item" id="item{{ item.item_id }}" (change)="changeitem(item)" />
+          <label for="item{{ item.item_id }}">{{ item.item_name.replaceAll('　', ' ') }}</label>
+        </div>
+      }
+    </div>
+  }
+  @if (selectedcartplate() && useExtension()) {
+    <div>
+      @for (item of selectedcartplateExtension1().items; track item) {
+        <div class="itemtoggle">
+          <input type="radio" name="item" id="item{{ item.item_id }}" (change)="changeitem(item)" />
+          <label
+            for="item{{ item.item_id }}"
+            [style.visibility]="item.hide"
+            [style.width]="item.width"
+            >{{ item.item_name }}</label
+          >
+        </div>
+      }
+    </div>
+  }
+  @if (selectedcartplate() && useExtension()) {
+    <div>
+      @for (item of selectedcartplateExtension2().items; track item) {
+        <div class="itemtoggle">
+          <input type="radio" name="item" id="item{{ item.item_id }}" (change)="changeitem(item)" />
+          <label
+            for="item{{ item.item_id }}"
+            [style.visibility]="item.hide"
+            [style.width]="item.width"
+            >{{ item.item_name }}</label
+          >
+        </div>
+      }
+    </div>
+  }
+  @if (selectedcartplate() && useExtension()) {
+    <div>
+      @for (item of selectedcartplateExtension3().items; track item) {
+        <div class="itemtoggle">
+          <input type="radio" name="item" id="item{{ item.item_id }}" (change)="changeitem(item)" />
+          <label
+            for="item{{ item.item_id }}"
+            [style.visibility]="item.hide"
+            [style.width]="item.width"
+            >{{ item.item_name }}</label
+          >
+        </div>
+      }
+    </div>
+  }
+  @if (selecteditem() && locked()) {
+    <hr class="shorterhr" />
+  }
+  @if (selecteditem() && !locked()) {
+    <hr />
+  }
+  @if (selecteditem()) {
+    <div class="itemtitle">■商品サイズを選択してください</div>
+  }
+  @if (selecteditem()) {
+    <div>
+      @for (variation of selecteditem().variations; track variation) {
+        <div class="variationtoggle">
+          <input
+            type="radio"
+            name="variation"
+            id="variation{{ variation.variation_id }}"
+            (change)="changevariation(variation)"
+          />
+          <label
+            for="variation{{ variation.variation_id }}"
+            [style.background-color]="selecteditem().item_background_color"
+            [style.color]="selecteditem().item_color"
+            [style.visibility]="variation.candisplay"
+            [style.font-size]="variation.variation_name.length > 5 ? '1rem' : '1.8rem'"
+            >{{ variation.variation_name }}</label
+          >
+        </div>
+      }
+    </div>
+  }
+  @if (selectedvariation() && needMatashita()) {
+    <hr />
+  }
+  @if (selectedvariation() && needMatashita()) {
+    <div class="itemtitle">■股下サイズを選択してください</div>
+  }
+  @if (selectedvariation() && needMatashita()) {
+    <div>
+      @for (pantslength of pantslengths50; track pantslength) {
+        <div class="matashitatoggle">
+          <input
+            type="radio"
+            name="matashita"
+            id="matashita{{ pantslength.matashita }}"
+            (click)="changematashita(pantslength)"
+          />
+          <label for="matashita{{ pantslength.matashita }}">{{ pantslength.caption }}</label>
+        </div>
+      }
+    </div>
+  }
+  @if (selectedvariation() && needMatashita()) {
+    <div>
+      @for (pantslength of pantslengths60; track pantslength) {
+        <div class="matashitatoggle">
+          <input
+            type="radio"
+            name="matashita"
+            id="matashita{{ pantslength.matashita }}"
+            (click)="changematashita(pantslength)"
+          />
+          <label for="matashita{{ pantslength.matashita }}">{{ pantslength.caption }}</label>
+        </div>
+      }
+    </div>
+  }
+  @if (selectedvariation() && needMatashita()) {
+    <div>
+      @for (pantslength of pantslengths70; track pantslength) {
+        <div class="matashitatoggle">
+          <input
+            type="radio"
+            name="matashita"
+            id="matashita{{ pantslength.matashita }}"
+            (click)="changematashita(pantslength)"
+          />
+          <label for="matashita{{ pantslength.matashita }}">{{ pantslength.caption }}</label>
+        </div>
+      }
+    </div>
+  }
+  @if (selectedvariation() && needMatashita()) {
+    <div>
+      @for (pantslength of pantslengths80; track pantslength) {
+        <div class="matashitatoggle">
+          <input
+            type="radio"
+            name="matashita"
+            id="matashita{{ pantslength.matashita }}"
+            (click)="changematashita(pantslength)"
+          />
+          <label for="matashita{{ pantslength.matashita }}">{{ pantslength.caption }}</label>
+        </div>
+      }
+    </div>
+  }
+  <div id="mostbottom">　</div>
+
+  @if (showqrdlg()) {
+    <div class="qrcodedialogback">
+      <div class="qrcodedialog">
+        <div class="qritemname">{{ qrcodevaluejson['item_name'].replaceAll('　', ' ') }}</div>
+        <div class="qrvariationname">{{ qrcodevaluejson['variation_name'] }}</div>
+        <div class="qrmatashita">
+          {{ qrcodevaluejson['matashita'] }}
+          @if (qrcodevaluejson['matashita']) {
+            <span>cm</span>
+          }
+        </div>
+        <div class="qrexplanation">このQRコードを携帯画面でお読み取りください</div>
+        <qrcode [qrdata]="qrcodevalue()" [width]="qrsize" [errorCorrectionLevel]="'M'"></qrcode>
+        <div>
+          <button class="cloasedlgbutton" (click)="closedlg()">閉じる</button>
+        </div>
+        <div class="qrexplanation">（この画面は１２０秒で自動的に閉じます）</div>
+        <div class="meter">
+          <span [style.width]="progress() + '%'"></span>
+        </div>
+      </div>
+    </div>
+  }
+</div>

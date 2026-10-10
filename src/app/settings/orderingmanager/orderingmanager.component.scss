@@ -1,0 +1,91 @@
+.matrixinfo{
+  margin: 10px;
+  .headeritem{
+    display: inline-block;
+    margin: 0px 10px;
+  }
+  .radioitem{
+    display: inline-block;
+    input[type=radio]{
+      display: none;
+    }
+    input[type=radio] + label{
+      display: inline-block;
+      font-size: 0.8rem;
+      border: solid 1px #000000;
+      padding: 5px 10px;
+    }
+    input[type=radio]:checked + label{
+      background-color: #22b5da;
+    }
+  }
+}
+.listplate{
+  max-width: calc(100vw - 150px);
+  height: calc(100vh - 160px);
+  overflow: auto;
+  background-color: #f5daf5;
+  .customercarttable{
+    // width: 3000px;
+    display: block;
+    // overflow-x: scroll;
+    white-space: nowrap;
+    // -webkit-overflow-scrolling: touch;
+    .headerrow{
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    .customerrow{
+      font-size: 0.8rem;
+    }
+  }
+}
+.actionbox{
+  margin: 10px;
+  height: 30px;
+}
+.sumdialogback{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(0, 0, 0, 0.3);
+  .sumdialog{
+    margin: 50px auto;
+    padding: 10px;
+    width: 500px;
+    background-color: #ffffff;
+    .summaryselectpanes{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 5px;
+      .summaryselectpane{
+        flex: 0 0 auto;
+        user-select: none;
+        input{
+          display: none;
+        }
+        input + label {
+          border: solid 2px #22b5da;
+          font-size: 0.8rem;
+          margin: 5px;
+          padding: 5px;
+          border-radius: 5px;
+        }
+        input:checked + label {
+          background-color: #22b5da;
+        }
+      }
+    }
+    .tableplate{
+      margin: 10px 0px;
+      .currency{
+        text-align: right;
+      }
+    }
+  }
+}

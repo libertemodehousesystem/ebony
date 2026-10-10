@@ -1,0 +1,75 @@
+<div class="shoppingcartarea">
+  <div class="shopppingcartplate">
+    <app-customerinfo
+      [(customerinfo)]="customerinfo"
+      [canedit]="false"
+      [cansearch]="cansearch"
+      [limited]="false"
+    ></app-customerinfo>
+    @if (targetcheckcomment()) {
+      <div class="oldusebox">
+        <input
+          type="checkbox"
+          id="olduse"
+          (change)="updatereceiptcomment()"
+          [(ngModel)]="targetcheckcomment().olduse"
+        />
+        <label for="olduse">おさがりを利用予定</label>
+      </div>
+    }
+    @if (targetcheckcomment()) {
+      <div class="receitbox">
+        <input
+          #IsReceipt
+          type="checkbox"
+          id="isreceit"
+          [(ngModel)]="targetcheckcomment().receipt_mode"
+          (change)="updatereceiptcomment()"
+        />
+        <label for="isreceit">領収書必要</label>
+        @if (IsReceipt.checked) {
+          <div class="receiptdetailbox">
+            <div class="receiptfield">
+              <label>宛名</label>
+              <input
+                type="text"
+                class="normallen"
+                [(ngModel)]="targetcheckcomment().receipt_address"
+                (input)="inputaddress($event)"
+              />
+            </div>
+            <div class="receiptfield">
+              <label>但し書き</label>
+              <input
+                type="text"
+                class="longlen"
+                [(ngModel)]="targetcheckcomment().receipt_proviso"
+                (input)="inputproviso($event)"
+              />
+            </div>
+          </div>
+        }
+      </div>
+    }
+    @if (customerinfo().customer_uid) {
+      <div class="routingbox">
+        <div class="routingbutton" (click)="routingmeasuring()">
+          <div class="textcell">採寸商品ページ</div>
+        </div>
+        <div class="routingbutton" (click)="routingpurchase()">
+          <div class="textcell">商品購入ページ</div>
+        </div>
+        <div class="routingbutton" (click)="routingaccounting()">
+          <div class="textcell">お会計<br />ページ</div>
+        </div>
+      </div>
+    }
+    <app-cartinfo #CartInfo></app-cartinfo>
+  </div>
+</div>
+
+<!-- <div *ngIf="registing" class="dialogback">
+<div class="dialogwindow">
+  <div class="dialogmessage">レジに商品を登録中</div>
+</div>
+</div> -->

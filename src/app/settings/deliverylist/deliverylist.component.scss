@@ -1,0 +1,72 @@
+.deliverlistarea{
+  margin: 20px;
+  .header{
+    display: flex;
+    flex-direction: row;
+    justify-items: flex-start;
+    margin: 10px 0px;
+    height: 50px;
+    .postagetoggle{
+      display:  inline-block;
+      input[type=checkbox]{
+        display: none;
+      }
+      input[type=checkbox] + label {
+        display: inline-block;
+        padding: 5px 10px;
+        border: solid 1px #000000;
+      }
+      input[type=checkbox]:checked + label {
+        background-color: #ff0000;
+      }
+    }
+    .alltoggle{
+      margin-left: 10px;
+      display:  inline-block;
+      input[type=checkbox]{
+        display: none;
+      }
+      input[type=checkbox] + label {
+        display: inline-block;
+        padding: 5px 10px;
+        border: solid 1px #000000;
+      }
+      input[type=checkbox]:checked + label {
+        background-color: #ff0000;
+      }
+    }
+    .shippingdate{
+      margin-left: 20px;
+      display: inline-block;
+      label{
+        margin-right: 5px;
+      }
+      input[type=date]{
+        padding: 4px 8px;
+      }
+    }
+    .actionbox{
+      margin-left: auto;
+      display: inline-block;
+      .exportbutton{
+        padding: 5px 10px;
+      }
+    }
+  }
+  .body{
+    height: calc(100vh - 150px);
+    overflow-y: scroll;
+    .deliverytable thead th{
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    th{
+      background-color: #aa00ff;
+    }
+    .addr-warning{
+      background-color: #ff0000;
+    }
+  }
+}

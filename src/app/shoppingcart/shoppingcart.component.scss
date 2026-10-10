@@ -1,0 +1,267 @@
+@use '../commondesign' as *;
+
+.shoppingcartarea{
+  height: calc(100vh - 50px);
+  overflow-y: auto;
+  .shopppingcartplate{
+    margin: 0px auto 40px auto;
+    width: calc(100vw - 20px);
+    max-width: 600px;
+    .cartcaption{
+      margin: 20px 0px;
+      font-weight: bold;
+      text-decoration: underline;
+      text-align: center;
+    }
+    .platecaption{
+      margin: 5px 0px;
+      padding: 5px;
+      border-left: solid 3px $liberte-default;
+      border-bottom: solid 1px $liberte-default;
+    }
+    .measurementbox{
+      .measurementpane{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: baseline;
+        margin: 10px;
+        .measurementlabel{
+          font-size: 0.8rem;
+        }
+        .measurementamount{
+          margin: 0px 10px;
+          padding: 0px 0px 0px 5px;
+          border-bottom: solid 1px #000000;
+        }
+        .measurementunit{
+          font-size: 0.8rem;
+        }
+      }
+    }
+    .noitemmessage{
+      margin: 30px;
+      padding: 3px;
+      background-color: #ff0000;
+      color: #ffffff;
+    }
+    .cartitempane{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      border: solid 1px #000000;
+      margin: 10px;
+      padding: 5px;
+      .namepane{
+        .itemname{
+          font-weight: bold;
+        }
+        // .variationname{
+        // }
+      }
+      .itemamountpricebox{
+        margin-left: auto;
+        .itemflex{
+          display:flex;
+          flex-direction: row;
+          justify-content: flex-end;
+        }
+        .itemamountlabel{
+          margin-right: 5px;
+          font-size: 0.8rem;
+        }
+        .itemamount{
+          font-weight: bold;
+          padding: 0px 5px;
+          text-decoration: underline;
+        }
+        .itemtotalmoneylabeltable{
+          display: table;
+          margin-right: 5px;
+          .itemtotalmoneylabelcell{
+            display: table-cell;
+            font-size: 0.8rem;
+            vertical-align: bottom;
+          }
+        }
+        .itemtotalmoney{
+          .itemprice{
+            text-align: right;
+          }
+          .itemtax{
+            font-size: 0.6rem;
+          }
+        }
+        .itemtotalmoneyunittable{
+          display:table;
+          margin-left: 5px;
+          .itemtotalmoneyunitcell{
+            display: table-cell;
+            vertical-align: bottom;
+            font-size: 0.6rem;
+          }
+        }
+      }
+    }
+    .cartmoneybox{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      margin: 30px 0px;
+      padding: 10px;
+      background-color: #ecf1be;
+      .totalmoneylabel{
+        font-size: 1.4rem;
+      }
+      .totalmoneyamount{
+        margin-left: auto;
+        .deliverymoney{
+          font-size: 0.8rem;
+          text-align: right;
+          span{
+            margin-left: 5px;
+            font-size: 0.6rem;
+          }
+        }
+        .totaltaxmoney{
+          font-size: 0.8rem;
+          text-align: right;
+          span{
+            margin-left: 5px;
+            font-size: 0.6rem;
+          }
+        }
+        .totalmoney{
+          font-size: 1.0rem;
+          font-weight: bold;
+          text-align: right;
+          span{
+            margin-left: 5px;
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+    .accountingbutton{
+      margin-top: 20px;
+      padding: 10px 0px;
+      color: #ffffff;
+      background-color: $liberte-default;
+      outline: none;
+      border: none;
+      width: 100%;
+      &:hover{
+        background-color: $liberte-active;
+      }
+      &:active{
+        background-color: $liberte-active;
+      }
+      &:disabled{
+        color: #000000;
+        background-color: $liberte-nonactive;
+        cursor: not-allowed;
+      }
+    }
+    .oldusebox{
+      margin: 15px 10px 15px 10px;
+      input + label{
+        font-size: 0.8rem;
+        padding: 5px 5px;
+        border: solid 3px #ffffff;
+      }
+      input:checked + label{
+        color: #ffffff;
+        border: solid 3px #0000ff;
+        background-color: #0000ff;
+      }
+    }
+    .receitbox{
+      margin: 10px 10px 5px 10px;
+      input + label{
+        font-size: 0.8rem;
+        padding: 5px 5px;
+        border: solid 3px #ffffff;
+      }
+      input:checked + label{
+        color: #ffffff;
+        border: solid 3px #0000ff;
+        background-color: #0000ff;
+      }
+      .receiptdetailbox{
+        display: inline-block;
+        margin: 0px 0px 0px 10px;
+        .receiptfield{
+          display: inline-block;
+          label{
+            display: block;
+            font-size: 0.6rem;
+          }
+          input[type=text]{
+            outline: none;
+            border: none;
+            border-bottom: solid 1px #000000;
+            padding: 5px;
+            margin-right: 5px;
+            &:focus{
+              background-color: #bebeff;
+            }
+          }
+          .normallen{
+            width: 120px;
+          }
+          .longlen{
+            width: 200px;
+          }
+        }
+      }
+    }
+    .routingbox{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      margin-left: 20px;
+      .routingbutton{
+        user-select: none;
+        height: 60px;
+        width: 60px;
+        display: table;
+        margin: 10px 5px 20px 5px;
+        padding: 5px;
+        font-size: 0.8rem;
+        border:solid 1px #000000;
+        cursor: pointer;
+        &:hover{
+          background-color: #f89bca;
+        }
+        &:active{
+          background-color: #f89bca;
+        }
+        .textcell{
+          display: table-cell;
+          vertical-align: middle;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+.dialogback{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.3);
+  .dialogwindow{
+    margin: 100px auto;
+    width: 300px;
+    padding: 10px;
+    // border:solid 1px #000000;
+    background-color: #ffffff;
+    .dialogmessage{
+      margin: 10px;
+      font-size: 0.8rem;
+    }
+  }
+}

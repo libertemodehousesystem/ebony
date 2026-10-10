@@ -1,0 +1,52 @@
+@use '../../commondesign' as *;
+
+.connectarea{
+  padding: 10px;
+  .subtitle{
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  .accessbox{
+    .itemfield{
+      margin-left: 10px;
+      margin-top: 5px;
+      label {
+        display: inline-block;
+        width: 120px;
+      }
+      input[type=text]{
+        padding: 5px;
+        width: 300px;
+      }
+    }
+  }
+  .tokensbox{
+    .itemfield{
+      margin-left: 10px;
+      margin-top: 5px;
+      label {
+        display: inline-block;
+        width: 120px;
+      }
+      input[type=text]{
+        padding: 5px;
+        width: 300px;
+      }
+    }
+  }
+  .locationtoggle{
+    input[type=radio]{
+      display: none;
+    }
+    input[type=radio] + label{
+      display: inline-block;
+      font-size: 0.8rem;
+      padding: 5px 10px;
+      border: solid 1px #8b8b8b;
+    }
+    input[type=radio]:checked + label{
+      background-color: $liberte-active;
+      border: solid 1px $liberte-active;
+    }
+  }
+}

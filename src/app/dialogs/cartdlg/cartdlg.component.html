@@ -1,0 +1,13 @@
+<div class="cartdlgback">
+  <div class="dlgwindow">
+    <div class="dlgtitle">
+      {{ customer().customer_family_name }} {{ customer().customer_given_name }}さんのカート
+    </div>
+    <div class="dlgcontent">
+      <app-cartinfo #CartInfo></app-cartinfo>
+    </div>
+    <div class="actionarea">
+      <button class="closebutton" (click)="closedialog()">閉じる</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,403 @@
+@use '../../commondesign' as *;
+
+.itemarea{
+  width: calc(100vw - 120px);
+  height: calc(100vh - 50px);
+  overflow-y: auto;
+  // .shopselectorplate{
+  //   margin: 10px 20px;
+  //   label{
+  //     display: block;
+  //     font-size: 0.6rem;
+  //   }
+  //   select{
+  //     padding : 5px;
+  //   }
+  // }
+  .sectiontitle{
+    font-size: 0.8rem;
+    border-bottom: solid 3px $liberte-default;
+    margin: 10px 10px 0px 10px;
+  }
+  .itempanes{
+    position: relative;
+    .itempane{
+      // display: flex;
+      // flex-direction: row;
+      // justify-content: flex-start;
+      position: relative;
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      grid-template-rows: auto;
+      border:solid 1px #a5a5a5;
+      padding: 10px;
+      margin: 10px;
+      .itemparams{
+        grid-column-start: 1;
+        grid-column-end: 2;
+        .itemfield{
+          margin: 0px 0px 10px 0px;
+          label{
+            display: block;
+            font-size: 0.6rem;
+          }
+          input[type=text]{
+            width: 230px;
+          }
+          .showmeasuring{
+            display: inline-block;
+            font-size: 0.8rem;
+          }
+          .diffsizing{
+            display: inline-block;
+            font-size: 0.8rem;
+          }
+          .pickupitem{
+            display: inline-block;
+            font-size: 0.8rem;
+          }
+          .postagetoggles{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            // overflow-x: auto;
+            .postagetoggle{
+              flex: 0 0 auto;
+              input[type=radio]{
+                display: none;
+              }
+              input[type=radio] + label{
+                padding: 5px;
+                border: solid 1px $liberte-nonactive;
+                color: #000000;
+              }
+              input[type=radio]:checked + label{
+                background-color: $liberte-active;
+                border: solid 1px $liberte-active;
+                color: #ffffff;
+                font-weight: bold;
+              }
+            }
+          }
+          .gendertoggles{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            overflow-x: auto;
+            .gendertoggle{
+              flex: 0 0 auto;
+              input[type=checkbox]{
+                display: none;
+              }
+              input[type=checkbox] + label{
+                padding: 5px;
+                border: solid 1px $liberte-nonactive;
+                color: #000000;
+              }
+              input[type=checkbox]:checked + label{
+                background-color: $liberte-active;
+                border: solid 1px $liberte-active;
+                color: #ffffff;
+                font-weight: bold;
+              }
+            }
+          }
+          .shoptoggles{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            overflow-x: auto;
+            .shoptoggle{
+              flex: 0 0 auto;
+              input[type=checkbox]{
+                display: none;
+              }
+              input[type=checkbox] + label{
+                padding: 5px;
+                border: solid 1px $liberte-nonactive;
+                color: #000000;
+              }
+              input[type=checkbox]:checked + label{
+                background-color: $liberte-active;
+                border: solid 1px $liberte-active;
+                color: #ffffff;
+                font-weight: bold;
+              }
+            }
+          }
+          .cartplateselector{
+            font-size: 0.8rem;
+            padding: 5px;
+          }
+        }
+      }
+      .variationparams{
+        grid-column-start: 2;
+        grid-column-end: 3;
+        // width: calc(100% - 170px);
+        .colorproperties{
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          label{
+            display: block;
+            margin: 0px 10px;
+            font-size: 0.6rem;
+          }
+          input[type=color]{
+            margin: 0px 10px;
+          }
+        }
+        .variationpanes{
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          width: 100%;
+          overflow-x: auto;
+          flex-wrap: wrap;
+          .variationpane{
+            flex: 0 0 auto;
+            display: table;
+            width: 70px;
+            height: 70px;
+            margin: 5px;
+            // border:solid 1px #000000;
+            .variationcell{
+              cursor: pointer;
+              display: table-cell;
+              vertical-align: middle;
+              text-align: center;
+              font-size: 0.8rem;
+              user-select: none;
+              border:solid 1px #000000;
+            }
+            .notvariationcell{
+              border:solid 2px #525252;
+              background-image: linear-gradient(to right top, transparent 49%, #525252 49%, #525252 51%, transparent 51%)
+            }
+          }
+        }
+      }
+      .updateicon{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        svg{
+          padding: 5px;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          opacity: 0.3;
+          background-color: $liberte-active;
+          cursor: pointer;
+          &:hover{
+            opacity: 1.0;
+          }
+        }
+      }
+      .updateitemnameicon{
+        position: absolute;
+        top: 42px;
+        right: 5px;
+        // top: 5px;
+        // right: 5px;
+        svg{
+          padding: 5px;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          opacity: 0.3;
+          background-color: #00ffff;
+          cursor: pointer;
+          &:hover{
+            opacity: 1.0;
+          }
+        }
+      }
+      .upicon{
+        position: absolute;
+        // top: 42px;
+        // right: 5px;
+        top: 80px;
+        right: 5px;
+        svg{
+          padding: 5px;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          opacity: 0.3;
+          background-color: $liberte-active;
+          cursor: pointer;
+          &:hover{
+            opacity: 1.0;
+          }
+        }
+      }
+      .downicon{
+        position: absolute;
+        // top: 80px;
+        // right: 5px;
+        top: 120px;
+        right: 5px;
+        svg{
+          padding: 5px;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          opacity: 0.3;
+          background-color: $liberte-active;
+          cursor: pointer;
+          &:hover{
+            opacity: 1.0;
+          }
+        }
+      }
+      .deleteicon{
+        position: absolute;
+        bottom: 0px;
+        right: 5px;
+        svg{
+          padding: 5px;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          opacity: 0.3;
+          background-color: #ff0000;
+          cursor: pointer;
+          &:hover{
+            opacity: 1.0;
+          }
+        }
+      }
+    }
+    // .itempane{
+    //   position: relative;
+    //   margin: 5px;
+    //   padding: 5px;
+    //   width: 400px;
+    //   height: 170px;
+    //   border: solid 1px #000000;
+    //   .fieldflex{
+    //     display: flex;
+    //     flex-direction: row;
+    //     justify-content: flex-start;
+    //   }
+    //   .itemfield{
+    //     flex: 0 0 flex;
+    //     margin: 0px 0px 10px 10px;
+    //     label{
+    //       display: block;
+    //       font-size: 0.6rem;
+    //     }
+    //     input[type=text]{
+    //       padding: 5px;
+    //     }
+    //     select{
+    //       padding: 5px;
+    //     }
+    //     .itemname{
+    //       width: 180px;
+    //     }
+    //     .barcodeinput{
+    //       width: 150px;
+    //     }
+    //     .shoptoggles{
+    //       display: flex;
+    //       flex-direction: row;
+    //       justify-content: flex-start;
+    //       overflow-x: auto;
+    //       .shoptoggle{
+    //         flex: 0 0 auto;
+    //         input[type=checkbox]{
+    //           display: none;
+    //         }
+    //         input[type=checkbox] + label{
+    //           padding: 5px;
+    //           border: solid 1px $liberte-nonactive;
+    //         }
+    //         input[type=checkbox]:checked + label{
+    //           background-color: $liberte-active;
+    //           border: solid 1px $liberte-active;
+    //         }
+    //       }
+    //     }
+    //   }
+    //   .barcodefield{
+    //     display: block;
+    //   }
+    //   .addicon{
+    //     position: absolute;
+    //     bottom: 5px;
+    //     right: 5px;
+    //     width: 30px;
+    //     height: 30px;
+    //     font-size: 20px;
+    //     text-align: center;
+    //     border-radius: 50%;
+    //     opacity: 0.2;
+    //     background-color: $liberte-default;
+    //     cursor: pointer;
+    //     &:hover{
+    //       opacity: 1.0;
+    //       color: #ffffff;
+    //     }
+    //   }
+    // }
+    // .deleteicon{
+    //   position: absolute;
+    //   top: 5px;
+    //   right: 5px;
+    //   svg{
+    //     width: 20px;
+    //     height: 20px;
+    //     padding: 3px;
+    //     border-radius: 50%;
+    //     background-color: $liberte-default;
+    //     opacity: 0.3;
+    //     &:hover{
+    //       opacity: 1.0;
+    //       fill: #ffffff;
+    //     }
+    //   }
+    // }
+  }
+  .originalitempanes{
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    .originalitempane{
+      flex: 0 0 auto;
+      font-size: 0.8rem;
+      margin: 5px;
+      padding: 5px;
+      border:solid 1px #000000;
+      .addicon{
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-right: 5px;
+        &:hover{
+          border-radius: 50%;
+          &:hover{
+            background-color: $liberte-active;
+            box-shadow: 0 0 2px 2px $liberte-active;
+            color: #ffffff;
+          }
+        }
+      }
+      .itemname{
+        display: inline-block;
+        font-size: 0.8rem;
+      }
+    }
+  }
+  .linkbutton{
+    margin: 10px 10px 20px 10px;
+  }
+}

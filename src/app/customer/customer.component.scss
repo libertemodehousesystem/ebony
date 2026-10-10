@@ -1,0 +1,147 @@
+$tablet: 600px;
+
+.customerarea{
+  width: 100vw;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  // @media screen and(max-width: 600px) {
+  @media (max-width: ($tablet)) {
+    .searchname {
+      text-align: center;
+      font-size: large;
+      padding:10px;
+    }
+
+    .searchnamebutton{
+      margin: 20px 30px;
+      width: calc(100% - 40px);
+      font-size: 1.2rem;
+    }
+    .customerpane{
+      padding-bottom: 120px;
+      width: calc(100vw - 20px);
+      max-width: 600px;
+      .tray{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+        padding: 0px 8px 0px 12px;
+      }
+      .registbutton{
+        display: block;
+        width: calc(100% - 40px);
+        margin: 20px 30px;
+        font-size: 1.2rem;
+      }
+      .printbutton{
+        display: block;
+        width: calc(100% - 40px);
+        margin: 20px 30px;
+        font-size: 1.2rem;
+      }
+      .resetbutton{
+        display: block;
+        width: calc(100% - 40px);
+        margin: 20px 30px;
+        font-size: 1.2rem;
+      }
+    }
+  }
+  // @media screen and(min-width: 600px) {
+  @media (min-width: ($tablet)) {
+    .searchname {
+      text-align: center;
+      font-size: large;
+      padding:10px;
+    }
+    .searchnamebutton{
+      margin: 20px 30px;
+      width: calc(100% - 60px);
+    }
+    .customerpane{
+      margin: 10px auto;
+      width: 600px;
+      .tray{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+      .registbutton{
+        display: block;
+        width: calc(100% - 60px);
+        margin: 20px auto;
+      }
+      .printbutton{
+        display: block;
+        width: calc(100% - 60px);
+        margin: 20px auto;
+      }
+      .resetbutton{
+        display: block;
+        width: calc(100% - 60px);
+        margin: 20px auto;
+      }
+    }
+  }
+  .foraccounting{
+    text-align: center;
+    margin: 10px 0px;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+  .reftray{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.printarea{
+  display: none;
+  .printlayout{
+    width: 600px;
+    margin: 20px auto;
+    .subtitle{
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .namelabel{
+      display: block;
+      font-size: 0.8rem;
+    }
+    .customername{
+      display: inline-block;
+      width: 200px;
+      border-bottom: solid 1px #000000;
+    }
+    span{
+      font-size: 0.8rem;
+    }
+  }
+  .printqr{
+    width: 600px;
+    margin: 10px auto;
+  }
+}
+
+@media print {
+  @page { margin: 0mm; size: A4 }
+  .customerarea{
+    display: none;
+  }
+  html, body{
+    margin: 0mm;
+  }
+  .printarea{
+    display: block;
+    margin: 0mm;
+    position: relative;
+
+    height: 277mm;
+    width: 200mm;
+    overflow: hidden;
+  }
+}

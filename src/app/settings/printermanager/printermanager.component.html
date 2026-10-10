@@ -1,0 +1,108 @@
+<div class="printersettingarea">
+  <div class="fieldbox">
+    <label>プリンターIPアドレス</label>
+    <span>{{ printprotocol }}</span>
+    <input type="text" [(ngModel)]="printer_addr" />
+    <span>/StarWebPRNT/SendMessage</span>
+    <button (click)="registprintersetting()">登録</button>
+  </div>
+  <div class="banksetting">
+    <div>振込銀行口座印字設定</div>
+    @for (bank of banks(); track bank; let i = $index; let first = $first; let last = $last) {
+      <div class="bankpane">
+        <div class="ordinalbox">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              [ngClass]="{ disableicon: first, paneicon: !first }"
+              (click)="upordinal(i)"
+            >
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z" />
+            </svg>
+          </div>
+          <div>{{ bank.bank_ordinal }}</div>
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              [ngClass]="{ disableicon: last, paneicon: !last }"
+              (click)="downordinal(i)"
+            >
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+            </svg>
+          </div>
+        </div>
+        <div class="ginko">
+          <label>銀行名</label>
+          <input type="text" [(ngModel)]="bank.bank_name" (input)="setbank(bank)" />
+        </div>
+        <div class="shiten">
+          <label>支店名</label>
+          <input type="text" [(ngModel)]="bank.shiten_name" (input)="setbank(bank)" />
+        </div>
+        <div class="kozakind">
+          <input
+            type="radio"
+            name="kozakind{{ bank.bank_uid }}"
+            id="normal{{ bank.bank_uid }}"
+            (change)="changebankkind(bank, 'NORMAL')"
+            [checked]="bank.bank_kind == 'NORMAL'"
+          />
+          <label for="normal{{ bank.bank_uid }}">普通口座</label>
+          <input
+            type="radio"
+            name="kozakind{{ bank.bank_uid }}"
+            id="current{{ bank.bank_uid }}"
+            (change)="changebankkind(bank, 'CURRENT')"
+            [checked]="bank.bank_kind == 'CURRENT'"
+          />
+          <label for="current{{ bank.bank_uid }}">当座口座</label>
+        </div>
+        <div class="koza">
+          <label>口座番号</label>
+          <input type="text" [(ngModel)]="bank.bank_koza" (input)="setbank(bank)" />
+        </div>
+      </div>
+    }
+    <div class="bankpane newpane">
+      <div class="ginko">
+        <label>銀行名</label>
+        <input type="text" [(ngModel)]="new_bank().bank_name" />
+      </div>
+      <div class="shiten">
+        <label>支店名</label>
+        <input type="text" [(ngModel)]="new_bank().shiten_name" />
+      </div>
+      <div class="kozakind">
+        <input
+          type="radio"
+          name="new_kozakind"
+          id="new_normal"
+          (change)="changebankkind(new_bank(), 'NORMAL')"
+          [checked]="new_bank().bank_kind == 'NORMAL'"
+        />
+        <label for="new_normal">普通口座</label>
+        <input
+          type="radio"
+          name="new_kozakind"
+          id="new_current"
+          (change)="changebankkind(new_bank(), 'CURRENT')"
+          [checked]="new_bank().bank_kind == 'CURRENT'"
+        />
+        <label for="new_current">当座口座</label>
+      </div>
+      <div class="koza">
+        <label>口座番号</label>
+        <input type="text" [(ngModel)]="new_bank().bank_koza" />
+      </div>
+      <div class="action">
+        <button (click)="addbank()">追加</button>
+      </div>
+    </div>
+  </div>
+  <button (click)="printertest()">テスト印字</button>
+  <canvas #CanvasPaper width="384" height="400"></canvas>
+</div>

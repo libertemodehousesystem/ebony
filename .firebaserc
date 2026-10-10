@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "libertebizappli-development",
+    "release": "libertebizappli-release"
+  },
+  "targets": {
+    "libertebizappli-development": {
+      "hosting": {"freshman-sales": ["libertedev-freshmansales"]}
+    },
+    "libertebizappli-release": {
+      "hosting": {"freshman-sales": ["liberte-freshmansales-re"]}
+    }
+  }
+}

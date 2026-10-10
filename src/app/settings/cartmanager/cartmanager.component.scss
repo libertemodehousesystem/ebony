@@ -1,0 +1,63 @@
+@use '../../commondesign' as *;
+
+.cartmanagerarea{
+  height: calc(100vh - 70px);
+  padding: 10px;
+  overflow-y: auto;
+  .cartpaltepane{
+    background-color: #f0f3f8;
+    margin: 5px;
+    padding: 0px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    .plateordinal{
+      width: 20px;
+      margin-right: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .defsvg{
+        visibility: hidden;
+        width: 20px;
+        height: 20px;
+      }
+      .nonesvg{
+        visibility: hidden;
+        width: 20px;
+        height: 20px;
+      }
+      .juni{
+        text-align: center;
+        font-size: 0.8rem;
+      }
+    }
+    .cartcaption{
+      width: 200px;
+      label{
+        font-size: 0.6rem;
+      }
+    }
+    .cartgender{
+      label{
+        font-size: 0.6rem;
+      }
+      input[type=checkbox]{
+        display: none;
+      }
+      input[type=checkbox] + label{
+        font-size: 0.8rem;
+        padding: 3px;
+        border: solid 1px #000000;
+      }
+      input[type=checkbox]:checked + label{
+        border: solid 1px $liberte-active;
+        background-color: $liberte-active;
+      }
+    }
+    .generateqrcode{
+      margin: 10px 0px 0px 20px;
+      font-size: 0.8rem;
+    }
+  }
+}

@@ -1,0 +1,65 @@
+<div class="cartmanagerarea">
+  @if (cartplates().length == 0) {
+    <div>
+      <button (click)="generatedefaultplates()">初期設定を行う</button>
+    </div>
+  }
+  @if (cartplates().length > 0) {
+    <div>
+      @for (cartplate of cartplates(); track cartplate; let first = $first; let last = $last) {
+        <div class="cartpaltepane">
+          <div class="plateordinal">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              [ngClass]="{ defsvg: !first, nonesvg: first }"
+            >
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z" />
+            </svg>
+            <div class="juni">{{ cartplate.ordinal }}</div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              [ngClass]="{ defsvg: !last, nonesvg: last }"
+            >
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+            </svg>
+          </div>
+          <div class="cartcaption">
+            <label>カート表示名</label>
+            <div>{{ cartplate.caption }}</div>
+          </div>
+          <div class="cartgender">
+            <label>表示性別</label>
+            <div>
+              @for (gender of genders(); track gender) {
+                <span>
+                  <input
+                    type="checkbox"
+                    id="checkbox{{ cartplate.plate_id }}{{ gender.gender_id }}"
+                    (change)="changecartpaltegender($event, cartplate, gender.gender_id)"
+                    [checked]="isgendercheck(cartplate, gender.gender_id)"
+                  />
+                  <label for="checkbox{{ cartplate.plate_id }}{{ gender.gender_id }}">{{
+                    gender.caption
+                  }}</label>
+                </span>
+              }
+            </div>
+          </div>
+          <div class="generateqrcode">
+            <input
+              type="checkbox"
+              id="genqrcode{{ cartplate.plate_id }}"
+              [(ngModel)]="cartplate.displayqrcode"
+              (change)="changegenerateqrcode($event, cartplate)"
+            />
+            <label for="genqrcode{{ cartplate.plate_id }}">QRCodeを生成する</label>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

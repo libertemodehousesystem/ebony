@@ -1,0 +1,47 @@
+.funccheck {
+  padding: 16px;
+}
+
+.actions {
+  margin-bottom: 16px;
+
+  button {
+    margin-right: 8px;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  width: max-content;
+
+  th, td {
+    padding: 8px 12px;
+    line-height: 24px;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+  }
+}
+
+tr.ok td {
+  color: green;
+}
+
+tr.ng td {
+  color: red;
+}
+
+.resultbox{
+  height: calc(100vh - 220px);
+  width: calc(100vw - 180px);
+  overflow: scroll;
+  border: 1px solid #ccc;
+
+  table {
+    white-space: nowrap;
+  }
+}

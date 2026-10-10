@@ -1,0 +1,208 @@
+<ng-template #itempane let-ownitem let-i="i" let-isfirst="isfirst" let-islast="islast">
+  <div class="itemparams">
+    <div class="itemfield">
+      <label>アイテム名</label>
+      <input type="text" [(ngModel)]="ownitem.item_name" (change)="updateitem(ownitem)" />
+    </div>
+    <div class="itemfield">
+      <label>カテゴリー</label>
+      <input type="text" [(ngModel)]="ownitem.item_category_subname" />
+    </div>
+    <div class="itemfield">
+      <!-- <label>採寸画面表示</label> -->
+      <input type="checkbox" [(ngModel)]="ownitem.showmeasuring" (change)="updateitem(ownitem)" />
+      <label class="showmeasuring">採寸画面に表示する</label>
+    </div>
+    <div class="itemfield">
+      <!-- <label>採寸画面表示</label> -->
+      <input type="checkbox" [(ngModel)]="ownitem.diffsizing" (change)="updateitem(ownitem)" />
+      <label class="diffsizing">採寸画面で異なるサイズを可能にする</label>
+    </div>
+    <div class="itemfield">
+      <input type="checkbox" [(ngModel)]="ownitem.pickupitem" (change)="updateitem(ownitem)" />
+      <label class="pickupitem">ピックアップアイテム</label>
+    </div>
+    <div class="itemfield">
+      <label>送料設定</label>
+      <div class="postagetoggles">
+        @for (postage of postages; track postage) {
+          <div class="postagetoggle">
+            <input
+              type="radio"
+              name="postage{{ ownitem.item_id }}"
+              id="{{ ownitem.item_id }}radio{{ postage.postage_id }}"
+              (change)="changepostagetoggle($event, ownitem, postage.postage_id)"
+              [checked]="postage.postage_id == ownitem.postage_id"
+            />
+            <label for="{{ ownitem.item_id }}radio{{ postage.postage_id }}">{{
+              postage.caption
+            }}</label>
+          </div>
+        }
+      </div>
+    </div>
+    <div class="itemfield">
+      <label>性別</label>
+      <div class="gendertoggles">
+        @for (gender of genders; track gender) {
+          <div class="gendertoggle">
+            <input
+              type="checkbox"
+              id="{{ ownitem.item_id }}checkbox{{ gender.gender_id }}"
+              (change)="changegendertoggle($event, ownitem, gender.gender_id)"
+              [checked]="isgenderchecked(ownitem, gender.gender_id)"
+            />
+            <label for="{{ ownitem.item_id }}checkbox{{ gender.gender_id }}">{{
+              gender.caption
+            }}</label>
+          </div>
+        }
+      </div>
+    </div>
+    <div class="itemfield">
+      <label>販売ショップ</label>
+      <div class="shoptoggles">
+        @for (shop of shops(); track shop) {
+          <div class="shoptoggle">
+            <input
+              type="checkbox"
+              id="{{ ownitem.item_id }}checkbox{{ shop.shop_id }}"
+              (change)="changeshoptoggle($event, ownitem, shop.shop_id)"
+              [checked]="ischecked(ownitem, shop.shop_id)"
+            />
+            <label for="{{ ownitem.item_id }}checkbox{{ shop.shop_id }}">{{
+              shop.shop_name
+            }}</label>
+          </div>
+        }
+      </div>
+    </div>
+    <div class="itemfield">
+      <label>カート内分類</label>
+      <select
+        class="cartplateselector"
+        (change)="cartplateselect($event, ownitem)"
+        [(ngModel)]="ownitem.cartplate_id"
+      >
+        <option [value]="null"></option>
+        @for (cartplate of cartplates(); track cartplate) {
+          <option [value]="cartplate.plate_id">{{ cartplate.caption }}</option>
+        }
+      </select>
+    </div>
+  </div>
+  <div class="variationparams">
+    <div class="colorproperties">
+      <div class="itemfield">
+        <label>表示色</label>
+        <input type="color" [(ngModel)]="ownitem.item_color" (change)="updateitem(ownitem)" />
+      </div>
+      <div class="itemfield">
+        <label>背景色</label>
+        <input
+          type="color"
+          [(ngModel)]="ownitem.item_background_color"
+          (change)="updateitem(ownitem)"
+        />
+      </div>
+    </div>
+    <div class="variationpanes">
+      @for (variation of ownitem.variations; track variation) {
+        <div>
+          <div
+            class="variationpane"
+            [style.background-color]="ownitem.item_background_color"
+            [style.color]="ownitem.item_color"
+          >
+            <div
+              [ngClass]="{
+                variationcell: true,
+                notvariationcell: variation.candisplay != 'visible',
+              }"
+              (click)="changevariationdisplay($event, variation, ownitem)"
+            >
+              {{ variation.variation_name }}
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+  <div class="updateicon" title="Squareデータを反映する">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      (click)="updatevariation(ownitem, i)"
+    >
+      <path d="M.01 0h24v24h-24V0z" fill="none" />
+      <path
+        d="M12 4V2.21c0-.45-.54-.67-.85-.35l-2.8 2.79c-.2.2-.2.51 0 .71l2.79 2.79c.32.31.86.09.86-.36V6c3.31 0 6 2.69 6 6 0 .79-.15 1.56-.44 2.25-.15.36-.04.77.23 1.04.51.51 1.37.33 1.64-.34.37-.91.57-1.91.57-2.95 0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-.79.15-1.56.44-2.25.15-.36.04-.77-.23-1.04-.51-.51-1.37-.33-1.64.34C4.2 9.96 4 10.96 4 12c0 4.42 3.58 8 8 8v1.79c0 .45.54.67.85.35l2.79-2.79c.2-.2.2-.51 0-.71l-2.79-2.79c-.31-.31-.85-.09-.85.36V18z"
+      />
+    </svg>
+  </div>
+  <div class="updateitemnameicon" title="アイテム名称を反映する">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      (click)="updateitemname(ownitem, i)"
+    >
+      <path d="M.01 0h24v24h-24V0z" fill="none" />
+      <path
+        d="M12 4V2.21c0-.45-.54-.67-.85-.35l-2.8 2.79c-.2.2-.2.51 0 .71l2.79 2.79c.32.31.86.09.86-.36V6c3.31 0 6 2.69 6 6 0 .79-.15 1.56-.44 2.25-.15.36-.04.77.23 1.04.51.51 1.37.33 1.64-.34.37-.91.57-1.91.57-2.95 0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-.79.15-1.56.44-2.25.15-.36.04-.77-.23-1.04-.51-.51-1.37-.33-1.64.34C4.2 9.96 4 10.96 4 12c0 4.42 3.58 8 8 8v1.79c0 .45.54.67.85.35l2.79-2.79c.2-.2.2-.51 0-.71l-2.79-2.79c-.31-.31-.85-.09-.85.36V18z"
+      />
+    </svg>
+  </div>
+  <div class="upicon" title="アイテムの位置を上げる">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      (click)="chageitemordinal(ownitem, i, -1, isfirst, islast)"
+    >
+      <path d="M0 0h24v24H0V0z" fill="none" />
+      <path d="M7 14l5-5 5 5H7z" />
+    </svg>
+  </div>
+  <div class="downicon" title="アイテムの位置を下げる">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      (click)="chageitemordinal(ownitem, i, 1, isfirst, islast)"
+    >
+      <path d="M0 0h24v24H0z" fill="none" />
+      <path d="M7 10l5 5 5-5z" />
+    </svg>
+  </div>
+  <div class="deleteicon" title="リストから削除する">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" (click)="deleteitem(i)">
+      <path d="M0 0h24v24H0V0z" fill="none" />
+      <path
+        d="M16 9v10H8V9h8m-1.5-6h-5l-1 1H5v2h14V4h-3.5l-1-1zM18 7H6v12c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7z"
+      />
+    </svg>
+  </div>
+</ng-template>
+
+<div class="itemarea">
+  <div class="itempanes">
+    @for (item of items(); track item; let i = $index; let first = $first; let last = $last) {
+      <div class="itempane">
+        <ng-container
+          *ngTemplateOutlet="
+            itempane;
+            context: { $implicit: item, i: i, isfirst: first, islast: last }
+          "
+        ></ng-container>
+      </div>
+    }
+  </div>
+  <div class="sectiontitle">Squareから追加</div>
+  <div class="originalitempanes">
+    @for (filtereditem of filtereditems(); track filtereditem; let i = $index) {
+      <div class="originalitempane">
+        <div class="addicon" (click)="additem(filtereditem, i)">＋</div>
+        <div class="itemname">{{ filtereditem.item_name }}</div>
+      </div>
+    }
+  </div>
+  <button class="linkbutton" (click)="linkitem()">データ連携</button>
+</div>

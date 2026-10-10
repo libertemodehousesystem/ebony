@@ -1,0 +1,102 @@
+.progress-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  .progress-dialog {
+    background: #fff;
+    border-radius: 8px;
+    padding: 30px 40px;
+    min-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+    .progress-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    .progress-count {
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 16px;
+      background: #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 8px;
+
+      .progress-bar {
+        height: 100%;
+        background: #1976d2;
+        border-radius: 8px;
+        transition: width 0.3s ease;
+      }
+    }
+
+    .progress-percent {
+      font-size: 0.9rem;
+      text-align: right;
+      color: #555;
+    }
+  }
+}
+
+.addmovearea {
+  padding: 10px;
+  width: calc(100vw - 160px);
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+
+  .actionplate {
+    margin: 10px 0px;
+
+    .errortext {
+      margin-left: 10px;
+      color: red;
+      font-size: 0.9rem;
+    }
+  }
+
+  .customersbox {
+    width: calc(100vw - 160px);
+    height: calc(100vh - 120px);
+    overflow: auto;
+
+    .recordcount{
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    .customertable {
+      display: table;
+      white-space: nowrap;
+
+      .headerrow {
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+
+      .customerrow {
+        font-size: 0.8rem;
+        display: table-row;
+
+        .customercell {
+          display: table-cell;
+          padding: 5px 10px;
+        }
+      }
+    }
+  }
+}
